@@ -108,7 +108,7 @@ class MealSelectionController extends Controller
         //echo $userId;
         // Use the data to print the log
         $curl = curl_init();
-        $url = 'http://api.bulkstream.com:1416/mealprint.php?userid=' . $userId . '&printerid=TCMEAL';
+        $url = ''; //'http://api.bulkstream.com:1416/mealprint.php?userid=' . $userId . '&printerid=TCMEAL';
         curl_setopt_array($curl, array(
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
