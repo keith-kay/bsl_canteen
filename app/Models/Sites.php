@@ -9,10 +9,11 @@ class Sites extends Model
 {
     use HasFactory;
 
-    protected $table = 'cnt_mgn_db_sites';
+    protected $table = 'bsl_cmn_sites';
+    protected $primaryKey = 'bsl_cmn_sites_id';
 
     protected $fillable = [
-        'cnt_mgn_db_sites.name',
-        'cnt_mgn_db_sites.status',
+        'bsl_cmn_sites_name',
+        'bsl_cmn_sites_status',
     ];
 }

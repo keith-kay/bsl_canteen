@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
 
 class CustomUser extends Model implements Authenticatable
 {
-    use HasFactory;
+    use HasFactory, HasRoles;
 
     protected $table = 'bsl_cmn_users';
     protected  $primaryKey = 'bsl_cmn_users_id';
@@ -20,8 +21,9 @@ class CustomUser extends Model implements Authenticatable
         'bsl_cmn_users_pin',
         'bsl_cmn_users_type',
         'bsl_cmn_users_status',
-        'bsl_cmn_users_email',
-        'bsl_cmn_users_deparment',
+        'email',
+        'bsl_cmn_users_department',
+        'password',
     ];
 
     // Implementing required methods for Authenticatable contract
@@ -39,8 +41,7 @@ class CustomUser extends Model implements Authenticatable
 
     public function getAuthPassword()
     {
-        // Since you're not using a password for authentication, return null or an empty string
-        return null;
+        return $this->password;
     }
 
     public function getAuthIdentifier()
@@ -61,5 +62,15 @@ class CustomUser extends Model implements Authenticatable
     public function getRememberToken()
     {
         // If you have a remember token column, return its value here
+    }
+    // define a relationship between the models
+    public function userType()
+    {
+        return $this->belongsTo(User_type::class, 'bsl_cmn_users_type');
+    }
+    public function isAdmin()
+    {
+        // Check if the user has the "admin" or "super-admin" role
+        return $this->hasRole('admin') || $this->hasRole('super-admin');
     }
 }

@@ -1,0 +1,30 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+    {
+        Schema::table('bsl_cmn_users', function (Blueprint $table) {
+            $table->renameColumn('bsl_cmn_users_password', 'password');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('bsl_cmn_users', function (Blueprint $table) {
+            $table->renameColumn('password', 'bsl_cmn_users_password');
+        });
+    }
+};
