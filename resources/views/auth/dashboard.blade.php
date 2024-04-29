@@ -151,7 +151,15 @@
                         </a>
                     </div>
                     <div class="col-md-6 mt-4">
-                        <a href="javascript:void(0);" onclick="selectMeal(2)" style="text-decoration: none;">
+                        <a href="javascript:void(0);" onclick="
+        @php
+            $hour = (int) date('H');
+            if ($hour >= 7 && $hour < 19) {
+                echo 'selectMeal(2)';
+            } else {
+                echo 'selectMeal(3)';
+            }
+        @endphp" style="text-decoration: none;">
                             <div class="image-div">
                                 <div class="d-flex justify-content-center mx-auto"
                                     style="max-width: 300px; max-height: 300px;">
@@ -168,13 +176,14 @@
                                     style="color: #153037; margin-bottom: 20px;">
                                     <strong><u>
                                             @php
-                                            $hour = (int) date('H');
                                             if ($hour >= 7 && $hour < 19) { echo 'Lunch' ; } else { echo 'Supper' ; }
                                                 @endphp </u></strong>
                                 </p>
                             </div>
                         </a>
                     </div>
+
+
 
                 </div>
 

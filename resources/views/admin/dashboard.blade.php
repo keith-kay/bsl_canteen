@@ -6,7 +6,7 @@ Admin | Dashboard
 
 @section('tea')
 <!-- day shift tea count -->
-<div class="col-xxl-4 col-md-3">
+<!-- <div class="col-xxl-4 col-md-3">
     <div class="card info-card sales-card">
 
         <div class="card-body">
@@ -26,10 +26,10 @@ Admin | Dashboard
 
     </div>
 
-</div>
+</div> -->
 
 <!-- nigh shift tea count -->
-<div class="col-xxl-4 col-md-3">
+<!-- <div class="col-xxl-4 col-md-3">
     <div class="card info-card sales-card">
 
         <div class="card-body">
@@ -49,12 +49,12 @@ Admin | Dashboard
 
     </div>
 
-</div>
+</div> -->
 @stop
 
 
 @section('lunch')
-<div class="col-xxl-4 col-md-3">
+<!-- <div class="col-xxl-4 col-md-3">
     <div class="card info-card revenue-card">
 
         <div class="card-body">
@@ -72,11 +72,11 @@ Admin | Dashboard
         </div>
 
     </div>
-</div>
+</div> -->
 @stop
 
 @section('supper')
-<div class="col-xxl-4 col-md-3">
+<!-- <div class="col-xxl-4 col-md-3">
 
     <div class="card info-card customers-card">
 
@@ -96,51 +96,55 @@ Admin | Dashboard
         </div>
     </div>
 
-</div>
+</div> -->
 @stop
 
 @section('report')
 <div class="col-lg-12">
     <div class="card">
-
         <div class="card-body">
-            <h5 class="card-title">Tickets <span>/Today</span></h5>
+            <h5 class="card-title">Tickets <span>/
+                    @php
+                    $currentHour = date('H'); // Get current hour
+                    if ($currentHour >= 7 && $currentHour < 19) { echo 'Day Shift' ; } else { echo 'Night Shift' ; }
+                        @endphp </span>
+            </h5>
             <table id="reports-table" class="table table-border-less table-striped">
                 <thead>
                     <tr>
-
                         <th>Name</th>
                         <th>Company</th>
                         <th>Site</th>
                         <th>Meal Type</th>
                         <th>Timestamp</th>
-                        <th>Shift</th>
+                        <th>Shift</th> <!-- Add a new column for Shift -->
                     </tr>
                 </thead>
                 <tbody>
-
-
-                    @foreach($logs as $log)
+                    @php
+                    // Sort $logs array by timestamp in descending order
+                    $sortedLogs = $logs->sortByDesc('bsl_cmn_logs_time');
+                    @endphp
+                    @foreach($sortedLogs as $log)
                     <tr>
-                        <td>{{ $log->user->bsl_cmn_users_firstname }} {{ $log->user->bsl_cmn_users_lastname }}
-                        </td>
+                        <td>{{ $log->user->bsl_cmn_users_firstname }} {{ $log->user->bsl_cmn_users_lastname }}</td>
                         <td>{{ $log->user->userType->bsl_cmn_user_types_name }}</td>
                         <td>{{ $log->mealType->site->bsl_cmn_sites_name }}</td>
                         <td>{{ $log->mealType->bsl_cmn_mealtypes_mealname }}</td>
                         <td>{{ $log->bsl_cmn_logs_time }}</td>
-                        <td>{{ \Carbon\Carbon::parse($log->bsl_cmn_logs_time)->format('H:i') >= '07:00' 
-                            && \Carbon\Carbon::parse($log->bsl_cmn_logs_time)->format('H:i') <= '19:00'
-                             ? 'Day Shift' : 'Night Shift' }}
-                        </td> <!-- Determine shift based on time -->
+                        <td>
+                            @php
+                            $time = strtotime($log->bsl_cmn_logs_time);
+                            $hour = date('H', $time);
+                            $shift = ($hour >= 7 && $hour < 19) ? 'Day' : 'Night' ; echo $shift; @endphp </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-
         </div>
-
     </div>
 </div>
+
 @stop
 
 

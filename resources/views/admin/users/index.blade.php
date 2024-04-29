@@ -32,20 +32,22 @@ Admin | Roles
                 <tbody>
                     @foreach ($users as $user)
                     <tr>
-                        <td>{{ $user->bsl_cmn_users_firstname }} {{$user->bsl_cmn_users_lastname}}</td>
-                        <td>{{$user -> bsl_cmn_users_employment_number}}</td>
-                        <td>{{$user -> email}}</td>
-                        <td>{{$user -> bsl_cmn_users_pin}}</td>
-                        <td>{{$user -> bsl_cmn_users_department}}</td>
-                        <td>{{$user->userType->bsl_cmn_user_types_name}}</td>
-                        <td>
+                        <td style="white-space: nowrap;">{{ $user->bsl_cmn_users_firstname }}
+                            {{$user->bsl_cmn_users_lastname}}
+                        </td>
+                        <td style="white-space: nowrap;">{{$user -> bsl_cmn_users_employment_number}}</td>
+                        <td style="white-space: nowrap;">{{$user -> email}}</td>
+                        <td style="white-space: nowrap;">{{$user -> bsl_cmn_users_pin}}</td>
+                        <td style="white-space: nowrap;">{{$user -> bsl_cmn_users_department}}</td>
+                        <td style="white-space: nowrap;">{{$user->userType->bsl_cmn_user_types_name}}</td>
+                        <td style="white-space: nowrap;">
                             @if (!empty($user->getRoleNames()))
                             @foreach ($user->getRoleNames() as $rolename)
                             <label for="" class="badge bg-primary mx-1">{{$rolename}}</label>
                             @endforeach
                             @endif
                         </td>
-                        <td>
+                        <td style="white-space: nowrap;">
                             <div class="row">
                                 <div class="col">
                                     <a href="{{ url('users/'.$user->bsl_cmn_users_id.'/edit') }}"
@@ -57,8 +59,8 @@ Admin | Roles
                                 </div>
                             </div>
                         </td>
-
                     </tr>
+
                     @endforeach
                 </tbody>
             </table>

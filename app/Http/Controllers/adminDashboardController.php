@@ -16,6 +16,7 @@ class adminDashboardController extends Controller
         $logs = Logs::with('user', 'mealType')
             ->whereDate('bsl_cmn_logs_time', now()->toDateString())
             ->get();
+        //$logCount = $logs->count();
 
         $dayShiftStart = Carbon::today()->setHour(7)->setMinute(0)->setSecond(0); // 07:00 day shift start
         $dayShiftEnd = Carbon::today()->setHour(19)->setMinute(0)->setSecond(0); // 19:00  day shift end

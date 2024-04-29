@@ -6,10 +6,11 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Traits\HasPermissions;
 
 class CustomUser extends Model implements Authenticatable
 {
-    use HasFactory, HasRoles;
+    use HasFactory, HasRoles, HasPermissions;
 
     protected $table = 'bsl_cmn_users';
     protected  $primaryKey = 'bsl_cmn_users_id';

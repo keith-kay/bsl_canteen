@@ -10,8 +10,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link rel="icon" href="{{ asset('images/favicon-32x32.png') }}" type="image/x-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -53,7 +52,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a href="{{route( 'admin.dashboard' )}}" class="logo d-flex align-items-center">
                 <img src="{{ asset('images/bslogo.png') }}" alt="Logo" class="logo" style="width:auto;">
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -104,6 +103,7 @@
                 </a>
             </li><!-- End Dashboard Nav -->
 
+            @if(auth()->user()->hasRole('super-admin'))
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
                     href="#components-nav">
@@ -121,6 +121,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{url('sites')}}">
+                            <i class="bi bi-circle"></i><span>Sites</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ url('permissions') }}">
                             <i class="bi bi-circle"></i><span>Permissions</span>
                         </a>
@@ -132,21 +137,17 @@
                     </li>
                 </ul>
             </li><!-- End Users Nav -->
+            @endif
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{url('sites')}}">
-                    <i class="bi bi-grid"></i>
-                    <span>Sites</span>
-                </a>
-            </li>
             <!-- End Companies -->
-
+            @if(auth()->user()->hasRole('super-admin'))
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{url('ticket')}}">
                     <i class="bi bi-grid"></i>
                     <span>Meal-tickets</span>
                 </a>
             </li><!-- End Meal-tickets -->
+            @endif
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{url('report')}}">

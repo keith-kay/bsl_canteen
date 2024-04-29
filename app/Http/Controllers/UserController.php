@@ -205,7 +205,7 @@ class UserController extends Controller
         $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
-            'password' =>  'required|string|min:8',
+            'password' => 'nullable|string|min:8',
             'employment_number' => 'nullable|string',
             'user_type_id' => 'required|string',
             'status' => 'required|string',
@@ -270,10 +270,7 @@ class UserController extends Controller
                 // Admin user - authenticate using password
                 //dd($user);
                 if (Auth::attempt($credentials)) {
-                    // Authentication successful
-                    $uzer = Auth::user();
 
-                    //dd($uzer);
                     return redirect()->route('admin.dashboard');
                 } else {
                     return back()->withInput()->with('fail', 'Invalid email or password');
@@ -281,6 +278,7 @@ class UserController extends Controller
             } else {
                 // Regular user - authenticate using PIN
                 // Logic to authenticate using PIN goes here
+                return redirect()->route('/');
             }
         } else {
             return back()->withInput()->with('fail', 'User not found');
