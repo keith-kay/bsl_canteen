@@ -35,10 +35,10 @@ Route::group(['middleware' => ['role:super-admin']], function () {
 });
 
 //admin && super-admin routes 
-Route::group(['middleware' => ['role:super-admin|admin']], function () {
-    Route::get('/admin/dashboard', [adminDashboardController::class, 'adminDashboard'])->middleware('auth')->name('admin.dashboard');
-    Route::get('/report', [ReportController::class, 'index'])->name('report');
-});
+
+Route::get('/admin/dashboard', [adminDashboardController::class, 'adminDashboard'])->name('admin.dashboard');
+Route::get('/report', [ReportController::class, 'index'])->name('report');
+
 
 //normal user routes
 Route::group(['middleware' => ['role:user']], function () {

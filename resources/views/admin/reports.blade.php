@@ -9,7 +9,6 @@ Admin | Reports
 <style>
 .dataTables_wrapper .dataTables_filter {
     margin-bottom: 20px;
-    /* Adjust the margin-top value as needed */
 }
 
 #reports-table thead {
@@ -20,14 +19,54 @@ Admin | Reports
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Reports</h5>
+            <!-- Filter and Reset buttons -->
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <button id="export-btn" class="btn btn-nav fw-bold">Export to Excel</button>
+                </div>
+            </div>
+            <!-- Filter and Reset buttons -->
+            <div class="form-group row mt-3">
+                <div class="col-sm-6">
+                    <button id="filter-btn" class="btn btn-nav fw-bold">Filter</button>
+                    <button id="reset-btn" class="btn btn-danger">Reset</button>
+                </div>
+            </div>
 
-            <table id="reports-table" class="table table-border-less table-striped my-3">
+            <!-- Date filtering options -->
+            <div class="form-group row mt-3">
+                <label for="from_date" class="col-sm-2 col-form-label fw-bold">From:</label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control" id="from_date">
+                </div>
+                <label for="to_date" class="col-sm-2 col-form-label fw-bold">To:</label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control" id="to_date">
+                </div>
+            </div>
 
-                <thead>
-                    <div class="col-md-4 text-right mb-3">
-                        <button id="export-btn" class="btn btn-primary float-left">Export to Excel</button>
+            <!-- Meal Type filtering options -->
+            <div class="form-group row mt-3">
+                <label class="col-sm-2 col-form-label fw-bold">Meal Type:</label>
+                <div class="col-sm-10">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input meal-type-checkbox" type="checkbox" id="tea" value="Tea">
+                        <label class="form-check-label" for="tea">Tea</label>
                     </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input meal-type-checkbox" type="checkbox" id="lunch" value="Lunch">
+                        <label class="form-check-label" for="lunch">Lunch</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input meal-type-checkbox" type="checkbox" id="supper" value="Supper">
+                        <label class="form-check-label" for="supper">Supper</label>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Reports table -->
+            <table id="reports-table" class="table table-borderless table-striped my-3">
+                <thead>
                     <tr>
                         <th>Name</th>
                         <th>Staff No</th>
@@ -49,21 +88,16 @@ Admin | Reports
                         <td>{{$log->user->bsl_cmn_users_department}}</td>
                         <td>{{ $log->mealType->bsl_cmn_mealtypes_mealname }}</td>
                         <td>{{ $log->bsl_cmn_logs_time }}</td>
-                        <td>{{ \Carbon\Carbon::parse($log->bsl_cmn_logs_time)->format('H:i') >= '07:00' 
-                            && \Carbon\Carbon::parse($log->bsl_cmn_logs_time)->format('H:i') <= '19:00'
-                             ? 'Day Shift' : 'Night Shift' }}
-                        </td> <!-- Determine shift based on time -->
+                        <td>{{ \Carbon\Carbon::parse($log->bsl_cmn_logs_time)->format('H:i') >= '07:00' && \Carbon\Carbon::parse($log->bsl_cmn_logs_time)->format('H:i') <= '19:00' ? 'Day Shift' : 'Night Shift' }}
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>
 @stop
-
-
 
 @section('scripts')
 <!-- Include DataTables CSS -->
@@ -83,7 +117,31 @@ $(document).ready(function() {
         "info": true,
         "autoWidth": false,
         "responsive": true,
-        "pageLength": 10 // Display 10 rows per page
+        "pageLength": 10,
+    });
+
+    // Function to filter table based on date range and meal types
+    function applyFilters() {
+        var fromDate = $('#from_date').val();
+        var toDate = $('#to_date').val();
+        var selectedMealTypes = $('.meal-type-checkbox:checked').map(function() {
+            return this.value;
+        }).get();
+
+        table.draw(); // Redraw the table with new filters
+    }
+
+    // Filter button click event handler
+    $('#filter-btn').on('click', function() {
+        applyFilters();
+    });
+
+    // Reset button click event handler
+    $('#reset-btn').on('click', function() {
+        $('#from_date').val('');
+        $('#to_date').val('');
+        $('.meal-type-checkbox').prop('checked', false);
+        table.draw(); // Redraw the table to reset filters
     });
 
     $('#export-btn').on('click', function(event) {
@@ -130,6 +188,34 @@ $(document).ready(function() {
         // Save the workbook to an Excel file
         XLSX.writeFile(wb, 'MealTicketsReport_data.xlsx');
     }
+
+    // Apply custom filtering function
+    $.fn.dataTable.ext.search.push(
+        function(settings, data, dataIndex) {
+            var logDate = data[6]; // Assuming date is in 7th column (index 6)
+            var mealType = data[5]; // Assuming meal type is in 6th column (index 5)
+            var fromDate = $('#from_date').val();
+            var toDate = $('#to_date').val();
+            var selectedMealTypes = $('.meal-type-checkbox:checked').map(function() {
+                return this.value;
+            }).get();
+
+            // Filter by date range
+            if ((fromDate !== '' && toDate !== '') && (logDate < fromDate || logDate > toDate)) {
+                return false;
+            }
+
+            // Filter by meal types
+            if (selectedMealTypes.length > 0 && !selectedMealTypes.includes(mealType)) {
+                return false;
+            }
+
+            return true;
+        }
+    );
+
+    // Hide DataTable search input
+    $('.dataTables_filter').hide();
 });
 </script>
 @stop
