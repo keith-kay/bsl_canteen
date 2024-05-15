@@ -8,96 +8,94 @@
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" href="{{ asset('images/favicon-32x32.png') }}" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-        integrity="sha512-xxx" crossorigin="anonymous" />
-    <link rel="stylesheet"
-        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xxx" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
     <style>
-    /* Adjust styles as needed */
-    .landing-page {
-        padding: 50px 0;
-    }
-
-    .logo {
-        margin-bottom: 20px;
-        max-width: 150px;
-        /* Set maximum width for the logo */
-    }
-
-    .text-block {
-        background-color: #fff;
-        /* Soft gray */
-        border-radius: 10px;
-        padding: 30px;
-    }
-
-    .image-div {
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .image-div img {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-
-    .btn {
-        background-color: #f8f9fa;
-        color: #153037;
-    }
-
-    .btn:hover {
-        background-color: #153037;
-        color: #f8f9fa;
-        border: solid 2px #f8f9fa;
-    }
-
-    .btn-nav {
-        background-color: #153037;
-        color: #f8f9fa;
-        border: solid 2px #f8f9fa;
-    }
-
-    .btn-nav:hover {
-        background-color: #f8f9fa;
-        color: #153037;
-        border: solid 2px #153037;
-    }
-
-    .tea-description {
-        text-align: center;
-        /* Center-align the text */
-        font-size: 25px;
-        /* Set the font size */
-
-        margin-bottom: 40px;
-        /* Add some top margin */
-    }
-
-
-    @media (max-width: 768px) {
-
-        .text-block,
-        .image-div {
-            margin-bottom: 30px;
+        /* Adjust styles as needed */
+        .landing-page {
+            padding: 50px 0;
         }
 
-        .d-flex.justify-content-center.mx-auto {
+        .logo {
+            margin-bottom: 20px;
             max-width: 150px;
-            margin: 0 auto 0 auto;
+            /* Set maximum width for the logo */
         }
 
-        #swal-container {
-            max-width: 200px;
-            /* Set the maximum width */
-            margin: 0 auto;
-            /* Center the container horizontally */
+        .text-block {
+            background-color: #fff;
+            /* Soft gray */
+            border-radius: 10px;
+            padding: 30px;
         }
-    }
+
+        .image-div {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-div img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .btn {
+            background-color: #f8f9fa;
+            color: #153037;
+        }
+
+        .btn:hover {
+            background-color: #153037;
+            color: #f8f9fa;
+            border: solid 2px #f8f9fa;
+        }
+
+        .btn-nav {
+            background-color: #153037;
+            color: #f8f9fa;
+            border: solid 2px #f8f9fa;
+        }
+
+        .btn-nav:hover {
+            background-color: #f8f9fa;
+            color: #153037;
+            border: solid 2px #153037;
+        }
+
+        .tea-description {
+            text-align: center;
+            /* Center-align the text */
+            font-size: 25px;
+            /* Set the font size */
+
+            margin-bottom: 40px;
+            /* Add some top margin */
+        }
+
+
+        @media (max-width: 768px) {
+
+            .text-block,
+            .image-div {
+                margin-bottom: 30px;
+            }
+
+            .d-flex.justify-content-center.mx-auto {
+                max-width: 150px;
+                margin: 0 auto 0 auto;
+            }
+
+            #swal-container {
+                max-width: 200px;
+                /* Set the maximum width */
+                margin: 0 auto;
+                /* Center the container horizontally */
+            }
+        }
     </style>
 </head>
 
@@ -132,58 +130,34 @@
                     <div class="col-md-6 mt-4">
                         <a href="javascript:void(0);" onclick="selectMeal(1)" style="text-decoration: none;">
                             <div class="image-div">
-                                <div class="d-flex justify-content-center mx-auto"
-                                    style="max-width: 300px; max-height: 300px;">
-                                    <script
-                                        src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
-                                        type="module"></script>
-                                    <dotlottie-player
-                                        src="https://lottie.host/ca9c8ad3-da81-4ead-b80d-1c8fd9d0272f/HJTyTrfTrU.json"
-                                        background="transparent" speed="1" style="width: 100%; height: auto;" loop
-                                        autoplay>
+                                <div class="d-flex justify-content-center mx-auto" style="max-width: 300px; max-height: 300px;">
+                                    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+                                    <dotlottie-player src="https://lottie.host/ca9c8ad3-da81-4ead-b80d-1c8fd9d0272f/HJTyTrfTrU.json" background="transparent" speed="1" style="width: 100%; height: auto;" loop autoplay>
                                     </dotlottie-player>
                                 </div>
-                                <p class="text-center fs-5 mt-3 tea-description"
-                                    style="color: #153037; margin-bottom: 20px;">
+                                <p class="text-center fs-5 mt-3 tea-description" style="color: #153037; margin-bottom: 20px;">
                                     <strong><u>Tea</u></strong>
                                 </p>
                             </div>
                         </a>
                     </div>
                     <div class="col-md-6 mt-4">
-                        <a href="javascript:void(0);" onclick="
-        @php
-            $hour = (int) date('H');
-            if ($hour >= 7 && $hour < 19) {
-                echo 'selectMeal(2)';
-            } else {
-                echo 'selectMeal(3)';
-            }
-        @endphp" style="text-decoration: none;">
+                        <a href="javascript:void(0);" onclick="selectMeal(2)" style="text-decoration: none;">
                             <div class="image-div">
-                                <div class="d-flex justify-content-center mx-auto"
-                                    style="max-width: 300px; max-height: 300px;">
-                                    <script
-                                        src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
-                                        type="module"></script>
-                                    <dotlottie-player
-                                        src="https://lottie.host/ea6487ee-1ebd-4373-bf94-0a646aaa9e81/Ym8ml402Rf.json"
-                                        background="transparent" speed="1" style="width: 100%; height: auto;" loop
-                                        autoplay>
+                                <div class="d-flex justify-content-center mx-auto" style="max-width: 300px; max-height: 300px;">
+                                    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+                                    <dotlottie-player src="https://lottie.host/ea6487ee-1ebd-4373-bf94-0a646aaa9e81/Ym8ml402Rf.json" background="transparent" speed="1" style="width: 100%; height: auto;" loop autoplay>
                                     </dotlottie-player>
                                 </div>
-                                <p class="text-center fs-5 mt-3 tea-description"
-                                    style="color: #153037; margin-bottom: 20px;">
+                                <p class="text-center fs-5 mt-3 tea-description" style="color: #153037; margin-bottom: 20px;">
                                     <strong><u>
                                             @php
-                                            if ($hour >= 7 && $hour < 19) { echo 'Lunch' ; } else { echo 'Supper' ; }
-                                                @endphp </u></strong>
+                                            $hour = (int) date('H');
+                                            if ($hour >= 7 && $hour < 19) { echo 'Lunch' ; } else { echo 'Supper' ; } @endphp </u></strong>
                                 </p>
                             </div>
                         </a>
                     </div>
-
-
 
                 </div>
 
@@ -202,19 +176,19 @@
     <div id="swal-container">
         @if(session('success'))
         <script>
-        Swal.fire({
-            icon: 'success',
-            text: '{{ session("success") }}',
-            footer: 'Please pick your meal ticket!',
-            confirmButtonColor: '#153037',
-            timer: 5000,
-            timerProgressBar: true
-        }).then((result) => {
-            if (result.dismiss === Swal.DismissReason.timer) {
-                // Log out after 5 seconds
-                logoutUser();
-            }
-        });
+            Swal.fire({
+                icon: 'success',
+                text: '{{ session("success") }}',
+                footer: 'Please pick your meal ticket!',
+                confirmButtonColor: '#153037',
+                timer: 5000,
+                timerProgressBar: true
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    // Log out after 5 seconds
+                    logoutUser();
+                }
+            });
         </script>
         @endif
     </div>
@@ -222,53 +196,53 @@
     <div id="swal-container">
         @if(session('error'))
         <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: '{{ session("error") }}',
-            confirmButtonColor: '#153037', // Change the color of the confirm button
-            timer: 5000,
-            timerProgressBar: true
-        }).then((result) => {
-            if (result.dismiss === Swal.DismissReason.timer) {
-                // Log out after 5 seconds
-                logoutUser();
-            }
-        });
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ session("error") }}',
+                confirmButtonColor: '#153037', // Change the color of the confirm button
+                timer: 5000,
+                timerProgressBar: true
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    // Log out after 5 seconds
+                    logoutUser();
+                }
+            });
         </script>
         @endif
     </div>
 
 
     <script>
-    function logoutUser() {
-        window.location.href = '/logout';
-    }
+        function logoutUser() {
+            window.location.href = '/logout';
+        }
     </script>
 
     <script>
-    function selectMeal(mealTypeId) {
-        // Set the selected meal type ID in the hidden input field
-        document.getElementById('mealTypeIdInput').value = mealTypeId;
-        // Submit the form
-        document.getElementById('mealSelectionForm').submit();
-    }
-    var logoutTimer; // Variable to store the timeout
+        function selectMeal(mealTypeId) {
+            // Set the selected meal type ID in the hidden input field
+            document.getElementById('mealTypeIdInput').value = mealTypeId;
+            // Submit the form
+            document.getElementById('mealSelectionForm').submit();
+        }
+        var logoutTimer; // Variable to store the timeout
 
-    function resetLogoutTimer() {
-        clearTimeout(logoutTimer); // Clear the previous timeout
-        logoutTimer = setTimeout(logoutUser, 10000); // Set a new timeout for 10 seconds
-    }
+        function resetLogoutTimer() {
+            clearTimeout(logoutTimer); // Clear the previous timeout
+            logoutTimer = setTimeout(logoutUser, 10000); // Set a new timeout for 10 seconds
+        }
 
-    function logoutUser() {
-        window.location.href = '/logout'; // Redirect to the logout route
-    }
+        function logoutUser() {
+            window.location.href = '/logout'; // Redirect to the logout route
+        }
 
-    // Reset the logout timer on user activity
-    document.addEventListener('mousemove', resetLogoutTimer);
-    document.addEventListener('keydown', resetLogoutTimer);
-    document.addEventListener('click', resetLogoutTimer);
-    document.addEventListener('scroll', resetLogoutTimer);
+        // Reset the logout timer on user activity
+        document.addEventListener('mousemove', resetLogoutTimer);
+        document.addEventListener('keydown', resetLogoutTimer);
+        document.addEventListener('click', resetLogoutTimer);
+        document.addEventListener('scroll', resetLogoutTimer);
     </script>
 </body>
 

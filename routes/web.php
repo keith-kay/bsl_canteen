@@ -41,10 +41,10 @@ Route::get('/report', [ReportController::class, 'index'])->name('report');
 
 
 //normal user routes
-Route::group(['middleware' => ['role:user']], function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name("dashboard");
-    Route::post('/selectMeal', [MealSelectionController::class, 'selectMeal'])->name("select-meal");
-});
+//Route::group(['middleware' => ['role:user']], function () {
+Route::get('/dashboard', [DashboardController::class, 'index'])->name("dashboard");
+Route::post('/selectMeal', [MealSelectionController::class, 'selectMeal'])->name("select-meal");
+//});
 
 //admin login routes
 Route::get('/admin-login', [UserController::class, 'adminLogin'])->name('login');
