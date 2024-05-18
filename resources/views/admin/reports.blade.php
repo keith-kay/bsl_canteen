@@ -4,7 +4,6 @@
 Admin | Reports
 @stop
 
-
 @section('report')
 <style>
 .dataTables_wrapper .dataTables_filter {
@@ -47,16 +46,25 @@ Admin | Reports
 
             <!-- Meal Type filtering options -->
             <div class="form-group row mt-3">
-                <label class="col-sm-2 col-form-label fw-bold">Meal Type:</label>
-                <div class="col-sm-10">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input meal-type-checkbox" type="checkbox" id="tea" value="Tea">
-                        <label class="form-check-label" for="tea">Tea</label>
+                <div class="col-sm-6">
+                    <label class="col-form-label fw-bold">Meal Type:</label>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input meal-type-checkbox" type="checkbox" id="tea" value="Tea">
+                            <label class="form-check-label" for="tea">Tea</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input meal-type-checkbox" type="checkbox" id="lunch" value="Food">
+                            <label class="form-check-label" for="lunch">Food</label>
+                        </div>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input meal-type-checkbox" type="checkbox" id="lunch" value="Meal">
-                        <label class="form-check-label" for="lunch">Meal</label>
-                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="col-form-label fw-bold">Company:</label>
+                    <select class="form-select" id="company-select">
+                        <option value="">Select a company</option>
+
+                    </select>
                 </div>
             </div>
 
@@ -116,13 +124,29 @@ $(document).ready(function() {
         "pageLength": 10,
     });
 
-    // Function to filter table based on date range and meal types
+    // Fetch and populate the company dropdown
+    $.ajax({
+        url: "{{ route('fetch.companies') }}",
+        method: 'GET',
+        success: function(data) {
+            var companySelect = $('#company-select');
+            companySelect.empty();
+            companySelect.append('<option value="">Select a company</option>');
+            $.each(data, function(index, value) {
+                companySelect.append('<option value="' + value + '">' + value +
+                    '</option>');
+            });
+        }
+    });
+
+    // Function to filter table based on date range, meal types, and selected company
     function applyFilters() {
         var fromDate = $('#from_date').val();
         var toDate = $('#to_date').val();
         var selectedMealTypes = $('.meal-type-checkbox:checked').map(function() {
             return this.value;
         }).get();
+        var selectedCompany = $('#company-select').val(); // Get the selected company
 
         table.draw(); // Redraw the table with new filters
     }
@@ -137,9 +161,16 @@ $(document).ready(function() {
         $('#from_date').val('');
         $('#to_date').val('');
         $('.meal-type-checkbox').prop('checked', false);
+        $('#company-select').val('');
         table.draw(); // Redraw the table to reset filters
     });
 
+    // Company dropdown change event handler
+    $('#company-select').on('change', function() {
+        applyFilters(); // Apply filters when company selection changes
+    });
+
+    // Export button click event handler
     $('#export-btn').on('click', function(event) {
         event.preventDefault(); // Prevent the default action of the button
         exportDataToExcel();
@@ -195,6 +226,7 @@ $(document).ready(function() {
             var selectedMealTypes = $('.meal-type-checkbox:checked').map(function() {
                 return this.value;
             }).get();
+            var selectedCompany = $('#company-select').val(); // Get the selected company
 
             // Filter by date range
             if ((fromDate !== '' && toDate !== '') && (logDate < fromDate || logDate > toDate)) {
@@ -203,6 +235,12 @@ $(document).ready(function() {
 
             // Filter by meal types
             if (selectedMealTypes.length > 0 && !selectedMealTypes.includes(mealType)) {
+                return false;
+            }
+
+            // Filter by selected company
+            if (selectedCompany !== '' && data[2] !==
+                selectedCompany) { // Assuming company column is at index 2
                 return false;
             }
 

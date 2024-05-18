@@ -37,6 +37,7 @@ Route::group(['middleware' => ['role:super-admin']], function () {
 //admin && super-admin routes 
 
 Route::get('/admin/dashboard', [adminDashboardController::class, 'adminDashboard'])->name('admin.dashboard');
+Route::get('/fetch-companies', [ReportController::class, 'fetchCompanies'])->name('fetch.companies');
 Route::get('/report', [ReportController::class, 'index'])->name('report');
 
 
