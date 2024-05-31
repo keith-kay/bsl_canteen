@@ -9,7 +9,7 @@ class SitesController extends Controller
 {
     public function index()
     {
-        $sites = Sites::get();
+        $sites = Sites::with('ip')->get();
         return view('admin.sites.index', ['sites' => $sites]);
     }
     public function  create()

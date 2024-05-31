@@ -6,12 +6,15 @@ namespace App\Http\Controllers;
 
 use App\Models\CustomUser;
 use Carbon\Carbon;
+//use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Request;
 use App\Models\Logs;
 use Illuminate\Support\Facades\Auth;
 use App\Models\MealType;
 use App\Models\User_type;
 use App\Models\User;
+use Illuminate\Support\Facades\Http;
 
 
 class MealSelectionController extends Controller
@@ -19,9 +22,13 @@ class MealSelectionController extends Controller
     public function selectMeal(Request $request)
     {
         // Validate the incoming request
+        //dd($request->all());
+
         $validatedData = $request->validate([
-            'meal_type_id' => 'required|exists:bsl_cmn_mealtypes,bsl_cmn_mealtypes_id',
+            'meal_type_id' => 'required',
         ]);
+
+        //dd($validatedData);
 
 
         // Get the current user's ID
@@ -56,7 +63,7 @@ class MealSelectionController extends Controller
 
         //If a previous entry exists within the specified time frame, prevent the user from making a new entry
         if ($lastEntry) {
-            return redirect('/dashboard')->with('error', 'You have already made a meal selection in your shift. Please try again later.');
+            //return redirect('/dashboard')->with('error', 'You have already made a meal selection in your shift. Please try again later.');
         }
 
 
@@ -103,12 +110,42 @@ class MealSelectionController extends Controller
             'date' => $logTime,
         ];
 
+        $ip_address = '';
 
+        // Check for shared internet/ISP IP
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip_address = $_SERVER['HTTP_CLIENT_IP'];
+        }
+        // Check for IP address passed by proxy
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        // Check for the client IP address
+        else {
+            $ip_address = $_SERVER['REMOTE_ADDR'];
+        }
+
+        // Handle cases where there might be multiple IP addresses
+        if (strpos($ip_address, ',') !== false) {
+            $ip_address = explode(',', $ip_address)[0];
+        }
+
+        //dd($ip_address);
+
+        // Determine the URL based on the IP address
+        if ($ip_address === '127.0.0.1') {
+            $url = 'http://api.bulkstream.com:1416/mealprint.php?userid=' . $userId . '&printerid=TCMEAL';
+        } elseif ($ip_address === '192.168.5.105') {
+            $url = 'http://api.bulkstream.com:1436/mealprint.php?userid=' . $userId . '&printerid=TCMEAL';
+        } else {
+            // Default URL or alternative handling for other IP addresses
+            $url = 'http://api.bulkstream.com:1416/mealprint.php?userid=' . $userId . '&printerid=TCMEAL';
+        }
         //echo json_encode($data);
         //echo $userId;
         // Use the data to print the log
         $curl = curl_init();
-        $url = 'http://api.bulkstream.com:1416/mealprint.php?userid=' . $userId . '&printerid=TCMEAL';
+        //$url = 'http://api.bulkstream.com:1416/mealprint.php?userid=' . $userId . '&printerid=TCMEAL';
         curl_setopt_array($curl, array(
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
@@ -128,6 +165,7 @@ class MealSelectionController extends Controller
         $response = curl_exec($curl);
         if ($response === false) {
             echo "Error: Failed to connect to API.";
+            echo $url;
         } else {
             echo $response;
             echo $url;
@@ -140,6 +178,6 @@ class MealSelectionController extends Controller
 
 
         // Return a success response
-        return redirect('/dashboard')->with('success', 'Meal selection logged successfully!');
+        //return redirect('/dashboard')->with('success', 'Meal selection logged successfully!');
     }
 }

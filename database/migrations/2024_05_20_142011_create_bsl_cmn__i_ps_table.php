@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bsl_cmn_ip', function (Blueprint $table) {
-            $table->id();
+        Schema::create('bsl_cmn_IPs', function (Blueprint $table) {
+            $table->bigIncrements('bsl_cmn_IPs_id');
+            $table->string('bsl_cmn_IPs_name');
+            $table->string('bsl_cmn_IPs_address');
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bsl_cmn_ip');
+        Schema::dropIfExists('bsl_cmn_IPs');
     }
 };
