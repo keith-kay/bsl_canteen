@@ -12,10 +12,11 @@ use Illuminate\Http\Request;
 use App\Models\Logs;
 use Illuminate\Support\Facades\Auth;
 use App\Models\MealType;
+use App\Models\Sites;
 use App\Models\User_type;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
-
+use App\Services\PrintHelper;
 
 class MealSelectionController extends Controller
 {
@@ -179,5 +180,27 @@ class MealSelectionController extends Controller
 
         // Return a success response
         //return redirect('/dashboard')->with('success', 'Meal selection logged successfully!');
+    }
+
+    public function printTest(Request $request){
+        $sourceDevice = $request->ip();
+        dd($sourceDevice);
+        $site = Sites::where('bsl_cmn_sites_ip', $sourceDevice)->first();
+        $sitePrinter = $site->printers;
+        $mealDetails = (object)[
+            'staffid' => '123456',
+            'userName' => 'Victor Mtange',
+            'company' => 'Mumo Humo Inc.',
+            'department' => 'IT',
+            'mealtype' => 'Brunch',
+            'date' => '2030-09-01 12:00:00',
+        ];
+        #$printer = new PrintHelper("172.16.41.124", 9100);	
+        ## Handle "Cannot initialise NetworkPrintConnector: No route to host"
+        #$printer = new PrintHelper("10.168.3.129", 9100);	
+        $printer = new PrintHelper($sitePrinter->address, $sitePrinter->port);	
+        $printer->printMealTicket($mealDetails);
+        echo "The helper worked!";
+        
     }
 }

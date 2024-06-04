@@ -11,7 +11,8 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MealticketController;
 use App\Http\Controllers\SitesController;
 
-// Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/printTest', [MealSelectionController::class, 'printTest'])->name('printTest');
 //super-admin routes
 Route::group(['middleware' => ['role:super-admin']], function () {
     Route::resource('permissions', App\Http\Controllers\PermissionController::class);
