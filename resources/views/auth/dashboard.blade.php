@@ -108,7 +108,7 @@
         <div class="row">
             <div class="col-md-12 mx-2">
                 <p>Your IP address is: {{ $ip_address }}</p>
-                <img src="{{ asset('images/bslogo.png') }}" alt="Logo" class="logo">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo">
                 @if (Auth::check() )
                 <div style="display: inline; float: right;">
                     <h5 style="display: inline;">{{ auth()->user()->bsl_cmn_users_firstname }}

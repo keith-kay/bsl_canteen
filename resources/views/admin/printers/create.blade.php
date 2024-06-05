@@ -31,11 +31,11 @@ Admin | Create Printers
                             </select>
                         </div>
                         <div class="mb-3 mt-3 col-lg-6">
-                            <label for="name" class="fw-bold">IP Address</label>
+                            <label for="name" class="fw-bold">Address</label>
                             <input type="text" name="address" class="form-control">
                         </div>
                         <div class="mb-3 mt-3 col-lg-6">
-                            <label for="name" class="fw-bold">IP Port</label>
+                            <label for="name" class="fw-bold">Port</label>
                             <input type="text" name="port" class="form-control">
                         </div>
                         <input type="hidden" id="status" name="status" value="1">
