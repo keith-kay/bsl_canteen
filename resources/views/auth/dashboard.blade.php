@@ -130,7 +130,7 @@
                 @csrf
                 <div class="row mt-3 mb-4">
                     <input type="hidden" id="mealTypeIdInput" name="meal_type_id">
-                    @if ($ip_address == '127.0.0.1')
+
                     <div class="col-md-6 mt-4">
                         <a href="javascript:void(0);" onclick="selectMeal(1)" style="text-decoration: none;">
                             <div class="image-div">
@@ -148,6 +148,32 @@
                                 <p class="text-center fs-5 mt-3 tea-description"
                                     style="color: #153037; margin-bottom: 20px;">
                                     <strong><u>Tea</u></strong>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-6 mt-4">
+                        <a href="javascript:void(0);" onclick="selectMeal(2)" style="text-decoration: none;">
+                            <div class="image-div">
+                                <div class="d-flex justify-content-center mx-auto"
+                                    style="max-width: 300px; max-height: 300px;">
+                                    <script
+                                        src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+                                        type="module"></script>
+                                    <dotlottie-player
+                                        src="https://lottie.host/ea6487ee-1ebd-4373-bf94-0a646aaa9e81/Ym8ml402Rf.json"
+                                        background="transparent" speed="1" style="width: 100%; height: auto;" loop
+                                        autoplay>
+                                    </dotlottie-player>
+                                </div>
+                                <p class="text-center fs-5 mt-3 tea-description"
+                                    style="color: #153037; margin-bottom: 20px;">
+                                    <strong><u>
+                                            @php
+                                            $hour = (int) date('H');
+                                            if ($hour >= 7 && $hour < 19) { echo 'Lunch' ; } else { echo 'Supper' ; }
+                                                @endphp </u></strong>
                                 </p>
                             </div>
                         </a>
@@ -234,7 +260,6 @@
         @endif
     </div>
 
-
     <script>
     function logoutUser() {
         window.location.href = '/logout';
@@ -253,6 +278,7 @@
         // Submit the form
         document.getElementById('mealSelectionForm').submit();
     }
+
     var logoutTimer; // Variable to store the timeout
 
     function resetLogoutTimer() {
@@ -269,6 +295,11 @@
     document.addEventListener('keydown', resetLogoutTimer);
     document.addEventListener('click', resetLogoutTimer);
     document.addEventListener('scroll', resetLogoutTimer);
+
+    // Embed the IP address in a JavaScript variable
+    var ipAddress = "{{ $ip_address }}";
+    // Log the IP address to the console
+    console.log("IP Address:", ipAddress);
     </script>
 </body>
 
