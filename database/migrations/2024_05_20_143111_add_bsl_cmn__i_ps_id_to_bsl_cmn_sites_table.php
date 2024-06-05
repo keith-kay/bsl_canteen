@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('bsl_cmn_sites', function (Blueprint $table) {
-            $table->unsignedBigInteger('bsl_cmn_sites_ip')->nullable();
+            /* $table->unsignedBigInteger('bsl_cmn_sites_ip')->nullable();
             $table->foreign('bsl_cmn_sites_ip')
                 ->references('bsl_cmn_IPs_id')
                 ->on('bsl_cmn_IPs')
-                ->onDelete('cascade');
+                ->onDelete('cascade'); */
         });
     }
 

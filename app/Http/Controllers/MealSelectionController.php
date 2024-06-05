@@ -103,7 +103,7 @@ class MealSelectionController extends Controller
         // Prepare the data for printing
         $data = [
             'userid' => $user->bsl_cmn_users_id,
-            'userdetails' => $user->bsl_cmn_users_firstname . ' ' . $user->bsl_cmn_users_lastname,
+            'username' => $user->bsl_cmn_users_firstname . ' ' . $user->bsl_cmn_users_lastname,
             'staffid' => $user->bsl_cmn_users_employment_number,
             'department' => $user->bsl_cmn_users_department,
             'company' => $userType,
@@ -201,6 +201,5 @@ class MealSelectionController extends Controller
         #$printer = new PrintHelper("10.168.3.129", 9100);	
         $printer = new PrintHelper($sitePrinter->address, $sitePrinter->port);
         $printer->printMealTicket($mealDetails);
-        echo "The helper worked!";
     }
 }

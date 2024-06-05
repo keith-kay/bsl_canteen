@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bsl_cmn_IPs', function (Blueprint $table) {
+       /*  Schema::create('bsl_cmn_IPs', function (Blueprint $table) {
             $table->bigIncrements('bsl_cmn_IPs_id');
             $table->string('bsl_cmn_IPs_name');
             $table->string('bsl_cmn_IPs_address');
             $table->timestamps();
-        });
+        }); */
     }
 
     /**

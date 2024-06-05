@@ -14,10 +14,9 @@ class SiteSeeder extends Seeder
     public function run(): void
     {
         DB::table('bsl_cmn_sites')->insert([
-            'bsl_cmn_sites_name' => 'Site 1',
+            'bsl_cmn_sites_name' => 'Dev Canteen',
             'bsl_cmn_sites_status' => 1,
-            #'bsl_cmn_sites_ip' => "127.0.0.1",
-            'bsl_cmn_sites_ip' => 127,
+            'bsl_cmn_sites_device_ip' => "127.0.0.1",
             'created_at'=>now()
         ]);
     }

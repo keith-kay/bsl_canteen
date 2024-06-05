@@ -81,7 +81,7 @@
         <!-- Logo -->
         <div class="row">
             <div class="col-md-12 mb-4 mx-3">
-                <img src="{{ asset('images/bslogo.png') }}" alt="Logo" class="logo">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo">
             </div>
         </div>
 
@@ -89,8 +89,8 @@
         <div class="row">
             <div class="col-md-7 d-none d-md-block">
                 <div class="text-block">
-                    <p style="color: #000; font-size: 70px; font-weight:300;">Welcome to <strong
-                            style="color: #153037; font-weight:600;">Bulkstream Limited</strong> Canteen</p>
+                    <p style="color: #000; font-size: 70px; font-weight:300;">Welcome to <br><strong
+                            style="color: #153037; font-weight:600;">{{ env("ENTITY") }}</strong> Canteen</p>
                 </div>
 
             </div>

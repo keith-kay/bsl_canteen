@@ -20,7 +20,7 @@
 
         <div class="form-group mx-3">
             <div class="mb-3 text-center mt-4 mb-3">
-                <img src="{{ asset('images/bslogo.png') }}" alt="Logo" class="mx-auto d-block" style="max-width: 70%;">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="mx-auto d-block" style="max-width: 70%;">
             </div>
             <h4 style="color: #153037; font-weight:600;" class="fw-bold mt-3 mb-2">Enter Pin</h4>
 
