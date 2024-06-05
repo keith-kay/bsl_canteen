@@ -17,8 +17,11 @@ return new class extends Migration
             $table->string('bsl_cmn_users_lastname');
             $table->string('bsl_cmn_users_employment_number');
             $table->string('bsl_cmn_users_pin');
+            $table->integer('bsl_cmn_users_status')->default(1);
+            $table->string('password');
             $table->integer('bsl_cmn_users_type')->unsigned();
             $table->timestamps();
+            ##$table->foreign('bsl_cmn_users_type')->references('bsl_cmn_user_types_id')->on('bsl_cmn_user_types');
         });
     }
 

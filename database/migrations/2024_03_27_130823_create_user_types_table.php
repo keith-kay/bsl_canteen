@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('bsl_cmn_user_types', function (Blueprint $table) {
             $table->increments('bsl_cmn_user_types_id');
             $table->string('bsl_cmn_user_types_name');
+            $table->integer('bsl_cmn_user_types_status')->default(1);
             $table->timestamps();
         });
     }

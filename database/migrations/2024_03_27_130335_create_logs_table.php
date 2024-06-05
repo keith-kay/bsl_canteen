@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('bsl_cmn_logs_mealtype')->unsigned();
             $table->foreign('bsl_cmn_logs_mealtype')->references('bsl_cmn_mealtypes_id')->on('bsl_cmn_mealtypes');
             $table->timestamp('bsl_cmn_logs_time');
+            $table->timestamps(); 
         });
     }
 

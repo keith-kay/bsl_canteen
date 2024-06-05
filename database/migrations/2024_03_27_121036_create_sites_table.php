@@ -15,6 +15,7 @@ return new class extends Migration
             $table->increments('bsl_cmn_sites_id');
             $table->string('bsl_cmn_sites_name');
             $table->integer('bsl_cmn_sites_status');
+            $table->char('bsl_cmn_sites_device_ip',15)->nullable();
             $table->timestamps();
         });
     }
