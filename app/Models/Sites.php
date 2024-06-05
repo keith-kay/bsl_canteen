@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Printers;
 
 class Sites extends Model
 {
@@ -18,12 +19,15 @@ class Sites extends Model
         'bsl_cmn_sites_ip'
     ];
 
-    public function ip()
+   /*  public function ip()
     {
         return $this->belongsTo(IPs::class, 'bsl_cmn_sites_ip', 'bsl_cmn_IPs_id');
-    }
+    } */
 
     public function getSiteByIP($ip){
-        return self::where('bsl_cmn_sites_ip', $ip)->first();
+        return self::where('bsl_cmn_sites_device_ip', $ip)->first();
+    }
+    public function printer() { 
+        return $this->hasMany(Printers::class, 'site_id', 'bsl_cmn_sites_id'); 
     }
 }

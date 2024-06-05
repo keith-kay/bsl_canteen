@@ -185,9 +185,9 @@ class MealSelectionController extends Controller
     public function printTest(Request $request)
     {
         $sourceDevice = $request->ip();
-        dd($sourceDevice);
-        $site = Sites::where('bsl_cmn_sites_ip', $sourceDevice)->first();
-        $sitePrinter = $site->printers;
+        $site = Sites::where('bsl_cmn_sites_device_ip', $sourceDevice)->first();
+        $sitePrinter = $site->printer->first();
+        #
         $mealDetails = (object)[
             'staffid' => '123456',
             'userName' => 'Victor Mtange',
@@ -196,10 +196,8 @@ class MealSelectionController extends Controller
             'mealtype' => 'Brunch',
             'date' => '2030-09-01 12:00:00',
         ];
-        #$printer = new PrintHelper("172.16.41.124", 9100);	
         ## Handle "Cannot initialise NetworkPrintConnector: No route to host"
-        #$printer = new PrintHelper("10.168.3.129", 9100);	
-        $printer = new PrintHelper($sitePrinter->address, $sitePrinter->port);
+        $printer = new PrintHelper($sitePrinter->address, $sitePrinter->port);	
         $printer->printMealTicket($mealDetails);
     }
 }
