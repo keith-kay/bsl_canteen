@@ -82,9 +82,9 @@ class MealSelectionController extends Controller
         $logTime = Carbon::parse($latestLog->bsl_cmn_logs_time)->timezone('Africa/Nairobi')->format('d/m/Y H:i:s');
 
         // Prepare the data for printing
-        $data = [
+        $mealDetails = (object) [
             'userid' => $user->bsl_cmn_users_id,
-            'username' => $user->bsl_cmn_users_firstname . ' ' . $user->bsl_cmn_users_lastname,
+            'userName' => $user->bsl_cmn_users_firstname . ' ' . $user->bsl_cmn_users_lastname,
             'staffid' => $user->bsl_cmn_users_employment_number,
             'department' => $user->bsl_cmn_users_department,
             'company' => $userType,
@@ -92,6 +92,15 @@ class MealSelectionController extends Controller
             'date' => $logTime,
         ];
 
+
+        $sourceDevice = $request->ip();
+        $site = Sites::where('bsl_cmn_sites_device_ip', $sourceDevice)->first();
+        $sitePrinter = $site->printer->first();
+        ## Handle "Cannot initialise NetworkPrintConnector: No route to host"
+        $printer = new PrintHelper($sitePrinter->address, $sitePrinter->port);	
+        $printer->printMealTicket($mealDetails);
+
+/* 
         $ip_address = '';
 
         // Check for shared internet/ISP IP
@@ -157,8 +166,8 @@ class MealSelectionController extends Controller
 
         curl_close($curl);
         echo $response;
-
-
+ */
+        return response()->json(['message' => 'Meal ticket printed successfully!']);
         // Return a success response
         //return redirect('/dashboard')->with('success', 'Meal selection logged successfully!');
     }

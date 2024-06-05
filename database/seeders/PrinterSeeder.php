@@ -16,7 +16,8 @@ class PrinterSeeder extends Seeder
         DB::table('printers')->insert([
             'site_id' => 1,
             'name' => 'Printer 1',
-            'address' => '127.0.0.1',
+            #'address' => '127.0.0.1',
+            'address' => '172.16.41.124',
             'port' => 9100,
             'status' => 1,
             'created_at'=>now()

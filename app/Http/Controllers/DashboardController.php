@@ -14,13 +14,15 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
 
         $user = Auth::user();
-        // Get the names of all logged-in users
-        //$loggedInUsers = CustomUser::selectRaw("CONCAT(bsl_cmn_users_firstname, ' ', bsl_cmn_users_lastname) AS full_name")->pluck('full_name')->toArray();
-
-        return view('auth.dashboard',);
+        return view('auth.dashboard')->with(
+            [
+                'user' => $user,
+                'ip_address' => $request->ip(),
+            ]
+        );
     }
 }
