@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Printers;
+use App\Models\Sites;
+
 class PrintersController extends Controller
 {
     /**
@@ -12,7 +14,7 @@ class PrintersController extends Controller
     public function index()
     {
         $printers = Printers::all();
-        return view('printers.index', compact('printers'));
+        return view('admin.printers.index', compact('printers'));
     }
 
     /**
@@ -20,7 +22,8 @@ class PrintersController extends Controller
      */
     public function create()
     {
-        return view('printers.create');
+        $sites = Sites::all();
+        return view('admin.printers.create', compact('sites'));
     }
 
     /**
@@ -28,7 +31,22 @@ class PrintersController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'  => 'required|string',
+            'status' => 'required|string',
+            'address' => 'required|string',
+            'port' => 'required|string',
+        ]);
+        //create a site
+        Printers::create([
+            'site_id' => $request->site,
+            'status' => $request->status,
+            'name' => $request->name,
+            'port' => $request->port,
+            'address' => $request->address
+        ]);
 
+        return redirect('printer')->with('status', 'Printer Created Successfully');
     }
 
     /**
@@ -62,6 +80,5 @@ class PrintersController extends Controller
      */
     public function destroy(string $id)
     {
-
     }
 }

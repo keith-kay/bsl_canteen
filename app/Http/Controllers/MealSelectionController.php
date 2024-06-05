@@ -58,7 +58,7 @@ class MealSelectionController extends Controller
         // Check if the user has already made a meal selection between 7am to 7am of the next day
         $lastEntry = Logs::where('bsl_cmn_logs_person', $userId)
             ->where('bsl_cmn_logs_mealtype', $validatedData['meal_type_id'])
-            ->whereBetween('created_at', [$shiftStart, $nextDayStart]) // Check within the current day from 7am to the next day at 7am
+            ->whereBetween('created_at', [$shiftStart, $nextDayStart])
             ->exists();
 
 
@@ -182,7 +182,8 @@ class MealSelectionController extends Controller
         //return redirect('/dashboard')->with('success', 'Meal selection logged successfully!');
     }
 
-    public function printTest(Request $request){
+    public function printTest(Request $request)
+    {
         $sourceDevice = $request->ip();
         $site = Sites::where('bsl_cmn_sites_device_ip', $sourceDevice)->first();
         $sitePrinter = $site->printer->first();
@@ -198,7 +199,5 @@ class MealSelectionController extends Controller
         ## Handle "Cannot initialise NetworkPrintConnector: No route to host"
         $printer = new PrintHelper($sitePrinter->address, $sitePrinter->port);	
         $printer->printMealTicket($mealDetails);
-        
-        
     }
 }

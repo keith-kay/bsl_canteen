@@ -9,31 +9,35 @@ use App\Http\Controllers\MealSelectionController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MealticketController;
+use App\Http\Controllers\PrintersController;
 use App\Http\Controllers\SitesController;
 
 
 Route::get('/printTest', [MealSelectionController::class, 'printTest'])->name('printTest');
 //super-admin routes
-Route::group(['middleware' => ['role:super-admin']], function () {
-    Route::resource('permissions', App\Http\Controllers\PermissionController::class);
-    Route::get('permissions/{permissionid}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
+//Route::group(['middleware' => ['role:super-admin']], function () {
+Route::resource('permissions', App\Http\Controllers\PermissionController::class);
+Route::get('permissions/{permissionid}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
 
-    Route::resource('roles', App\Http\Controllers\RoleController::class);
-    Route::get('roles/{roleid}/delete', [App\Http\Controllers\RoleController::class, 'destroy']);
-    Route::get('roles/{roleid}/give-permissions', [App\Http\Controllers\RoleController::class, 'addPermissionToRole']);
-    Route::put('roles/{roleid}/give-permissions', [App\Http\Controllers\RoleController::class, 'updatePermissionToRole'])->name('roles.give-permissions');
+Route::resource('roles', App\Http\Controllers\RoleController::class);
+Route::get('roles/{roleid}/delete', [App\Http\Controllers\RoleController::class, 'destroy']);
+Route::get('roles/{roleid}/give-permissions', [App\Http\Controllers\RoleController::class, 'addPermissionToRole']);
+Route::put('roles/{roleid}/give-permissions', [App\Http\Controllers\RoleController::class, 'updatePermissionToRole'])->name('roles.give-permissions');
 
-    Route::resource('users', App\Http\Controllers\UserController::class);
-    Route::get('users/{userid}/delete', [App\Http\Controllers\UserController::class, 'destroy']);
+Route::resource('users', App\Http\Controllers\UserController::class);
+Route::get('users/{userid}/delete', [App\Http\Controllers\UserController::class, 'destroy']);
 
-    Route::resource('companies', CompanyController::class);
-    Route::get('companies/{companyid}/delete', [App\Http\Controllers\CompanyController::class, 'destroy']);
+Route::resource('companies', CompanyController::class);
+Route::get('companies/{companyid}/delete', [App\Http\Controllers\CompanyController::class, 'destroy']);
 
-    Route::resource('sites', SitesController::class);
-    Route::get('sites/{siteid}/delete', [App\Http\Controllers\SitesController::class, 'destroy']);
+Route::resource('sites', SitesController::class);
+Route::get('sites/{siteid}/delete', [App\Http\Controllers\SitesController::class, 'destroy']);
 
-    Route::get('/ticket', [MealticketController::class, 'index'])->name('ticket');
-});
+Route::resource('printers', PrintersController::class);
+Route::get('printers/{printerid}/delete', [App\Http\Controllers\PrintersController::class, 'destroy']);
+
+Route::get('/ticket', [MealticketController::class, 'index'])->name('ticket');
+//});
 
 //admin && super-admin routes 
 
