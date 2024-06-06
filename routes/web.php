@@ -70,13 +70,10 @@ Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'admin'], function () {
-
-        Route::get('/printers', PrintersController::class . '@index')->name('printer.index');
-        Route::get('/printers/create', PrintersController::class . '@create')->name('printer.create');
-        Route::post('/printers/store', PrintersController::class . '@store')->name('printer.store');
-        Route::get('/printers/{id}/edit', [PrintersController::class, 'edit'])->name('printers.edit');
-        Route::put('/printers/{printer}', [PrintersController::class, 'update'])->name('printers.update');
-        Route::delete('/printers/{id}/delete', [PrintersController::class, 'destroy'])->name('printers.destroy');
+        Route::get('/printers', PrintersController::class . '@index')->name('printers.index');
+        Route::get('/printers/create', PrintersController::class . '@create')->name('printers.create');
+        Route::post('/', PrintersController::class . '@create')->name('printers.store');
+        Route::delete('/printers/{id}/delete', [App\Http\Controllers\PrintersController::class, 'destroy']);
     });
 });
 

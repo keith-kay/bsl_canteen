@@ -18,7 +18,6 @@ Admin | Printers
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Site</th>
                             <th>Name</th>
                             <th>Address</th>

@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        /* DB::table('bsl_cmn_user_types')->insert([
+        DB::table('bsl_cmn_user_types')->insert([
             ['bsl_cmn_user_types_name'=>'Visitor'],
             ['bsl_cmn_user_types_name'=>'Contractor'],
             ['bsl_cmn_user_types_name'=>'Staff'],
@@ -26,22 +26,47 @@ class DatabaseSeeder extends Seeder
 
         ##
         DB::table('bsl_cmn_users')->insert([
-            'bsl_cmn_users_firstname' => 'John',
-            'bsl_cmn_users_lastname' => 'Doe',
-            'bsl_cmn_users_employment_number' => 'G1234567',
-            'bsl_cmn_users_pin' => '4321',
-            'bsl_cmn_users_type' => 1,
-            'password' => Hash::make('P@ssword'),
+            [
+                'bsl_cmn_users_firstname' => 'John',
+                'bsl_cmn_users_lastname' => 'Doe',
+                'bsl_cmn_users_employment_number' => 'G1234567',
+                'bsl_cmn_users_pin' => '1234',
+                'bsl_cmn_users_type' => 1,
+                'password' => Hash::make('P@ssword'),
+            ],
+            [
+                'bsl_cmn_users_firstname' => 'Steven',
+                'bsl_cmn_users_lastname' => 'Haule',
+                'bsl_cmn_users_employment_number' => 'FP-035',
+                'bsl_cmn_users_pin' => '2345',
+                'bsl_cmn_users_type' => 1,
+                'password' => Hash::make('P@ssword'),
+            ],
+            [
+                'bsl_cmn_users_firstname' => 'Henrick',
+                'bsl_cmn_users_lastname' => 'Dastan',
+                'bsl_cmn_users_employment_number' => 'FP-042',
+                'bsl_cmn_users_pin' => '3456',
+                'bsl_cmn_users_type' => 1,
+                'password' => Hash::make('P@ssword'),
+            ],
+            [
+                'bsl_cmn_users_firstname' => 'Keith',
+                'bsl_cmn_users_lastname' => 'Rhova',
+                'bsl_cmn_users_employment_number' => 'FP-042',
+                'bsl_cmn_users_pin' => '4567',
+                'bsl_cmn_users_type' => 1,
+                'password' => Hash::make('P@ssword'),
+            ],
         ]);
 
         DB::table('bsl_cmn_user_types')->insert([
-            ['bsl_cmn_user_types_name'=>'Visitor'],
-            ['bsl_cmn_user_types_name'=>'Contractor'],
             ['bsl_cmn_user_types_name'=>'Staff'],
+            ['bsl_cmn_user_types_name'=>'Contractor'],
+            ['bsl_cmn_user_types_name'=>'Visitor'],
             ['bsl_cmn_user_types_name'=>'Logistics'],
             ['bsl_cmn_user_types_name'=>'BSL'],
         ]);
- */
         DB::table("roles")->insert([
             [
                 'name' => 'super-admin',
@@ -59,16 +84,6 @@ class DatabaseSeeder extends Seeder
                 'created_at' => Carbon::now(),
             ],
         ]);
-
-    
-        /* DB::table('model_has_roles')->insert([
-            [
-                'role_id' => 1,
-                'model_id' => 1,
-                'model_type' => 1,
-            ],
-            
-        ]); */
 
     }
 }

@@ -14,7 +14,10 @@ class PrintersController extends Controller
     public function index()
     {
         $printers = Printers::all();
-        return view('admin.printers.index', compact('printers'));
+        return view('admin.printers.index')
+                ->with([
+                    'printers' => $printers,
+                ]);
     }
 
     /**
