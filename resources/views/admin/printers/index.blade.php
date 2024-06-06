@@ -30,12 +30,13 @@ Admin | Printers
                         @foreach ($printers as $printer)
                         <tr>
                             <td>{{$printer -> id}}</td>
+                            <td>{{ $printer->site->bsl_cmn_sites_name }}</td>
                             <td>{{$printer -> name}}</td>
                             <td>{{$printer -> address}}</td>
                             <td>{{$printer -> port}}</td>
                             <td>
-                                <a href="{{url('printers/'.$printers->id.'/edit') }}" class="btn btn-success">Edit</a>
-                                <a href="{{url('printers/'.$printers->id.'/delete') }}" class="btn btn-danger">Delete</a>
+                                <a href="{{ url('printers/'.$printer->id.'/edit') }}" class="btn btn-success">Edit</a>
+                                <a href="{{url('printers/'.$printer->id.'/delete') }}" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                         @endforeach

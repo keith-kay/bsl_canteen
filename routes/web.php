@@ -19,7 +19,7 @@ Route::get('/mpe', function () {
     $user = Auth::user();
     dd($user);
     $user->assignRole('super-admin');
-});	
+});
 //super-admin routes
 //Route::group(['middleware' => ['role:super-admin']], function () {
 Route::resource('permissions', App\Http\Controllers\PermissionController::class);
@@ -38,6 +38,9 @@ Route::get('companies/{companyid}/delete', [App\Http\Controllers\CompanyControll
 
 Route::resource('sites', SitesController::class);
 Route::get('sites/{siteid}/delete', [App\Http\Controllers\SitesController::class, 'destroy']);
+
+Route::resource('printers', PrintersController::class);
+Route::get('printers/{printerid}/delete', [App\Http\Controllers\PrintersController::class, 'destroy']);
 
 
 Route::get('/ticket', [MealticketController::class, 'index'])->name('ticket');
@@ -66,12 +69,15 @@ Route::post('/login', [UserController::class, 'login'])->name('login-user');
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
-    Route::group(['prefix' => 'admin'], function(){
-        Route::get('/printers', PrintersController::class.'@index')->name('printer.index');
-        Route::get('/printers/create', PrintersController::class.'@create')->name('printer.create');
-        Route::delete('/printers/{id}/delete', [App\Http\Controllers\PrintersController::class, 'destroy']);
-    });
+    Route::group(['prefix' => 'admin'], function () {
 
+        Route::get('/printers', PrintersController::class . '@index')->name('printer.index');
+        Route::get('/printers/create', PrintersController::class . '@create')->name('printer.create');
+        Route::post('/printers/store', PrintersController::class . '@store')->name('printer.store');
+        Route::get('/printers/{id}/edit', [PrintersController::class, 'edit'])->name('printers.edit');
+        Route::put('/printers/{printer}', [PrintersController::class, 'update'])->name('printers.update');
+        Route::delete('/printers/{id}/delete', [PrintersController::class, 'destroy'])->name('printers.destroy');
+    });
 });
 
 //Route::post('/login-user', [UserController::class, 'loginUser'])->name('loginuser');

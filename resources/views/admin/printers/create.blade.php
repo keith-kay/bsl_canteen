@@ -11,7 +11,7 @@ Admin | Create Printers
 
             <div class="card-header d-flex justify-content-between">
                 <h5 class="m-0">Printers</h5>
-                <a href="{{ route('printers.index')}}" class="btn btn-danger">Back</a>
+                <a href="{{ route('printer.index')}}" class="btn btn-danger">Back</a>
             </div>
 
             <div class="card-body">
@@ -26,7 +26,7 @@ Admin | Create Printers
                             <label for="name" class="fw-bold">Site</label>
                             <select name="site_id" class="form-control">
                                 @foreach($sites as $site)
-                                <option value="{{ $site->id }}">{{ $site->bsl_cmn_sites_name }}</option>
+                                <option value="{{ $site->bsl_cmn_sites_id }}">{{ $site->bsl_cmn_sites_name }}</option>
                                 @endforeach
                             </select>
                         </div>

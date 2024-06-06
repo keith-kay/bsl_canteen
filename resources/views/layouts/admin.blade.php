@@ -104,7 +104,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#components-nav">
-                    <i class="bi bi-person"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-person"></i><span>Configs</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
@@ -128,8 +128,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ url('roles') }}">
+                        <a href="{{ url('roles')  }}">
                             <i class="bi bi-circle"></i><span>Roles</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('printer.index') }}">
+                            <i class="bi bi-circle"></i><span>Printers</span>
                         </a>
                     </li>
                 </ul>

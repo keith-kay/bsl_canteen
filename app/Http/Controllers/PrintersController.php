@@ -31,22 +31,24 @@ class PrintersController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name'  => 'required|string',
             'status' => 'required|string',
             'address' => 'required|string',
             'port' => 'required|string',
+            'site_id' => 'required|string',
         ]);
         //create a site
         Printers::create([
-            'site_id' => $request->site,
+            'site_id' => $request->site_id,
             'status' => $request->status,
             'name' => $request->name,
             'port' => $request->port,
             'address' => $request->address
         ]);
 
-        return redirect('printer')->with('status', 'Printer Created Successfully');
+        return redirect()->route('printer.index')->with('status', 'Printer Created Successfully');
     }
 
     /**
@@ -63,8 +65,9 @@ class PrintersController extends Controller
      */
     public function edit(string $id)
     {
-        $printer = Printers::find($id);
-        return view('printers.edit', compact('printer'));
+        $printers = Printers::find($id);
+        $sites = Sites::all();
+        return view('admin.printers.edit', compact('printers', 'sites'));
     }
 
     /**
@@ -72,13 +75,48 @@ class PrintersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|string',
+            'status' => 'required|string',
+            'address' => 'required|string',
+            'port' => 'required|string',
+            'site_id' => 'required|string',
+        ]);
+
+        // Find the existing printer record by ID
+        $printer = Printers::find($id);
+
+        if ($printer) {
+            // Update the printer's properties with the validated data
+            $printer->name = $request->name;
+            $printer->status = $request->status;
+            $printer->address = $request->address;
+            $printer->port = $request->port;
+            $printer->site_id = $request->site_id;
+
+            // Save the changes to the database
+            $printer->save();
+
+            // Redirect to the printer index page with a success message
+            return redirect()->route('printer.index')->with('status', 'Printer Updated Successfully');
+        } else {
+            // If the printer is not found, redirect back with an error message
+            return redirect()->route('printer.index')->with('error', 'Printer Not Found');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
+        $printer = Printers::findOrFail($id);
+
+        // Delete the printer
+        $printer->delete();
+
+        // Redirect back to the index page with a success message
+        return redirect()->route('printer.index')->with('status', 'Printer Deleted Successfully');
     }
 }
