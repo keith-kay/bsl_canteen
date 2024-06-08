@@ -11,7 +11,7 @@ Admin | Create Printers
 
             <div class="card-header d-flex justify-content-between">
                 <h5 class="m-0">Printers</h5>
-                <a href="{{ route('printer.index')}}" class="btn btn-danger">Back</a>
+                <a href="{{ route('printers.index')}}" class="btn btn-danger">Back</a>
             </div>
 
             <div class="card-body">

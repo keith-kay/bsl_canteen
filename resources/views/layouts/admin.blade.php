@@ -14,7 +14,9 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -64,14 +66,16 @@
                     @if (Auth::check() )
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <i class="bi bi-person-circle" style="font-size:30px;"></i>
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->bsl_cmn_users_firstname }}
+                        <span
+                            class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->bsl_cmn_users_firstname }}
                             {{ auth()->user()->bsl_cmn_users_lastname }}</span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                style="display: inline;">
                                 @csrf
                                 <button class="dropdown-item d-flex align-items-center" href="#">
                                     <i class="bi bi-box-arrow-right"></i>
@@ -103,8 +107,9 @@
 
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#components-nav">
-                    <i class="bi bi-person"></i><span>Configs</span><i class="bi bi-chevron-down ms-auto"></i>
+                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
+                    href="#components-nav">
+                    <i class="bi bi-gear"></i><span>Configs</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
@@ -133,7 +138,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('printer.index') }}">
+                        <a href="{{ url('printers') }}">
                             <i class="bi bi-circle"></i><span>Printers</span>
                         </a>
                     </li>
@@ -215,7 +220,8 @@
         <!--  -->
     </footer><!-- End Footer -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js')}}"></script>

@@ -43,13 +43,13 @@ class MealSelectionController extends Controller
 
         // Check if the user has already made a meal selection between 7am to 7am of the next day
         $lastEntry = Logs::where('bsl_cmn_logs_person', $userId)
-                        ->where('bsl_cmn_logs_mealtype', $validatedData['meal_type_id'])
-                        ->whereBetween('created_at', [$shiftStart, $nextDayStart])
-                        ->exists();
+            ->where('bsl_cmn_logs_mealtype', $validatedData['meal_type_id'])
+            ->whereBetween('created_at', [$shiftStart, $nextDayStart])
+            ->exists();
 
         //If a previous entry exists within the specified time frame, prevent the user from making a new entry
         if ($lastEntry) {
-            //return redirect('/dashboard')->with('error', 'You have already made a meal selection in your shift. Please try again later.');
+            return redirect('/dashboard')->with('error', 'You have already made a meal selection in your shift. Please try again later.');
         }
 
         // Create a new Logs entry
@@ -61,9 +61,9 @@ class MealSelectionController extends Controller
 
         // Fetch the latest log entry for the selected meal type
         $latestLog = Logs::where('bsl_cmn_logs_person', $userId)
-                        ->where('bsl_cmn_logs_mealtype', $validatedData['meal_type_id'])
-                        ->latest()
-                        ->first();
+            ->where('bsl_cmn_logs_mealtype', $validatedData['meal_type_id'])
+            ->latest()
+            ->first();
 
 
         // Fetch the related user details
@@ -97,10 +97,10 @@ class MealSelectionController extends Controller
         $site = Sites::where('bsl_cmn_sites_device_ip', $sourceDevice)->first();
         $sitePrinter = $site->printer->first();
         ## Handle "Cannot initialise NetworkPrintConnector: No route to host"
-        $printer = new PrintHelper($sitePrinter->address, $sitePrinter->port);	
+        $printer = new PrintHelper($sitePrinter->address, $sitePrinter->port);
         $printer->printMealTicket($mealDetails);
 
-/* 
+        /* 
         $ip_address = '';
 
         // Check for shared internet/ISP IP
@@ -169,7 +169,7 @@ class MealSelectionController extends Controller
  */
         return response()->json(['message' => 'Meal ticket printed successfully!']);
         // Return a success response
-        //return redirect('/dashboard')->with('success', 'Meal selection logged successfully!');
+        return redirect('/dashboard')->with('success', 'Meal selection logged successfully!');
     }
 
     public function printTest(Request $request)
@@ -187,7 +187,7 @@ class MealSelectionController extends Controller
             'date' => '2030-09-01 12:00:00',
         ];
         ## Handle "Cannot initialise NetworkPrintConnector: No route to host"
-        $printer = new PrintHelper($sitePrinter->address, $sitePrinter->port);	
+        $printer = new PrintHelper($sitePrinter->address, $sitePrinter->port);
         $printer->printMealTicket($mealDetails);
     }
 }

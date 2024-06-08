@@ -15,9 +15,9 @@ class PrintersController extends Controller
     {
         $printers = Printers::all();
         return view('admin.printers.index')
-                ->with([
-                    'printers' => $printers,
-                ]);
+            ->with([
+                'printers' => $printers,
+            ]);
     }
 
     /**
@@ -51,7 +51,7 @@ class PrintersController extends Controller
             'address' => $request->address
         ]);
 
-        return redirect()->route('printer.index')->with('status', 'Printer Created Successfully');
+        return redirect()->route('printers.index')->with('status', 'Printer Created Successfully');
     }
 
     /**

@@ -16,7 +16,7 @@ class Sites extends Model
     protected $fillable = [
         'bsl_cmn_sites_name',
         'bsl_cmn_sites_status',
-        'bsl_cmn_sites_ip'
+        'bsl_cmn_sites_device_ip'
     ];
 
     public function ip()

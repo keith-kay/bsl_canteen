@@ -18,6 +18,7 @@ class UserController extends Controller
     public function register(Request $request)
     {
         // Validate request data
+        dd($request);
         $validatedData = $request->validate([
             'firstname' => 'required|string',
             'lastname' => 'required|string',
@@ -246,6 +247,7 @@ class UserController extends Controller
     }
     public function loginUser(Request $request)
     {
+
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:6'

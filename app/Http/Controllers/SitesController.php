@@ -21,11 +21,13 @@ class SitesController extends Controller
         $request->validate([
             'name'  => 'required|string',
             'status' => 'required|string',
+            'device_ip' => 'required|string',
         ]);
         //create a site
         Sites::create([
             'bsl_cmn_sites_name' => $request->name,
-            'bsl_cmn_sites_status' => $request->status
+            'bsl_cmn_sites_status' => $request->status,
+            'bsl_cmn_sites_device_ip' => $request->device_ip
         ]);
 
         return redirect('sites')->with('status', 'Site Created Successfully');
@@ -36,17 +38,19 @@ class SitesController extends Controller
     }
     public function update(Request $request, Sites $site)
     {
-        //dd($request);
+
         $request->validate([
             'name'  => ['required', 'string', 'unique:permissions,name,' . $site->bsl_cmn_sites_id],
             'status' => 'required|string',
+            'device_ip' => 'required|string',
 
         ]);
 
         //update permission
         $site->update([
             'bsl_cmn_sites_name' => $request->name,
-            'bsl_cmn_sites_status' => $request->status
+            'bsl_cmn_sites_status' => $request->status,
+            'bsl_cmn_sites_device_ip' => $request->device_ip
         ]);
 
         return redirect('sites')->with('status', 'Site Updated Successfully');

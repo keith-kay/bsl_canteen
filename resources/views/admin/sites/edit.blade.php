@@ -22,6 +22,10 @@ Admin | Edit Sites
                         <label for="name">Site Name</label>
                         <input type="text" name="name" value="{{$site->bsl_cmn_sites_name}}" class="form-control">
                     </div>
+                    <div class="mb-3 mt-3">
+                        <label for="name">IP address</label>
+                        <input type="text" name="device_ip" value="{{$site->bsl_cmn_sites_device_ip}}" class="form-control">
+                    </div>
                     <input type="hidden" id="status" name="status" value="1">
                     <div class="mb-3">
                         <button type="submit" class="btn btn-primary">Update</button>

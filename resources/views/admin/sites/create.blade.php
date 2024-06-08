@@ -17,9 +17,13 @@ Admin | Create Site
             <div class="card-body">
                 <form action="{{route('sites.store')}}" method="POST">
                     @csrf
-                    <div class="mb-3 mt-3">
+                    <div class="mb-3 mt-3 fw-bold">
                         <label for="name">Site Name</label>
                         <input type="text" name="name" class="form-control">
+                    </div>
+                    <div class="mb-3 mt-3 fw-bold">
+                        <label for="name">Device Ip</label>
+                        <input type="text" name="device_ip" class="form-control">
                     </div>
                     <input type="hidden" id="status" name="status" value="1">
                     <div class="mb-3">

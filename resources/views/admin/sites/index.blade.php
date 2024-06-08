@@ -30,13 +30,16 @@ Admin | Sites
                         <tr>
                             <td>{{ $site->bsl_cmn_sites_id }} </td>
                             <td>{{$site -> bsl_cmn_sites_name}}</td>
-                            <td>{{$site->ip->bsl_cmn_IPs_address ?? 'N/A'}}</td>
+                            <td>{{$site -> bsl_cmn_sites_device_ip}}</td>
+
                             <td>
                                 <div class="d-inline">
-                                    <a href="{{ url('sites/'.$site->bsl_cmn_sites_id.'/edit') }}" class="btn btn-success">Edit</a>
+                                    <a href="{{ url('sites/'.$site->bsl_cmn_sites_id.'/edit') }}"
+                                        class="btn btn-success">Edit</a>
                                 </div>
                                 <div class="d-inline">
-                                    <a href="{{ url('sites/'.$site->bsl_cmn_sites_id.'/delete') }}" class="btn btn-danger">Delete</a>
+                                    <a href="{{ url('sites/'.$site->bsl_cmn_sites_id.'/delete') }}"
+                                        class="btn btn-danger">Delete</a>
                                 </div>
                             </td>
 
