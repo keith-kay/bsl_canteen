@@ -46,7 +46,7 @@ Admin | Create User
                             <input type="password" name="password" class="form-control">
                         </div>
                         <div class="mb-2">
-                            <label for="user_type_id" class="form-label">Company</label>
+                            <label for="user_type_id" class="form-label fw-bold">Company</label>
                             <select class="form-select" id="user_type_id" name="user_type_id" required>
                                 <option value="">Select Company</option>
                                 @foreach ($userTypes as $userTypeId => $userTypeName)
@@ -65,6 +65,16 @@ Admin | Create User
                                 @endforeach
                             </select>
                         </div>
+                        <div class="mb-3 mt-3 col-lg-6">
+                            <label for="user_type_id" class="form-label fw-bold">Shifts</label>
+                            <select class="form-select" id="user_type_id" name="shift[]" required>
+                                <option value="">Select Shift</option>
+                                @foreach($shifts as $shiftId => $shiftName)
+                                <option value="{{ $shiftId }}">{{ $shiftName }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <input type="hidden" id="status" name="status" value="1">
 
                         <div class="mb-3 mt-3 col-lg-12">

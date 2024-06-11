@@ -25,6 +25,7 @@ Admin | Roles
                         <th>Pin</th>
                         <th>Department</th>
                         <th>Company</th>
+                        <th>Shift</th>
                         <th>Roles</th>
                         <th>Action</th>
                     </tr>
@@ -41,21 +42,28 @@ Admin | Roles
                         <td style="white-space: nowrap;">{{$user -> bsl_cmn_users_department}}</td>
                         <td style="white-space: nowrap;">{{$user->userType->bsl_cmn_user_types_name}}</td>
                         <td style="white-space: nowrap;">
-                            @if (!empty($user->getRoleNames()))
-                            @foreach ($user->getRoleNames() as $rolename)
-                            <label for="" class="badge bg-primary mx-1">{{$rolename}}</label>
-                            @endforeach
-                            @endif
+                            <div class="d-flex flex-column">
+                                @foreach($user->shifts as $shift)
+                                <span class="badge bg-primary mb-1">{{ $shift->bsl_cmn_shifts_name }}</span>
+                                @endforeach
+                            </div>
+                        </td>
+                        <td style="white-space: nowrap;">
+                            <div class="d-flex flex-column">
+                                @if (!empty($user->getRoleNames()))
+                                @foreach ($user->getRoleNames() as $rolename)
+                                <span for="" class="badge bg-primary mb-1">{{$rolename}}</span>
+                                @endforeach
+                                @endif
+                            </div>
                         </td>
                         <td style="white-space: nowrap;">
                             <div class="row">
-                                <div class="col">
-                                    <a href="{{ url('users/'.$user->bsl_cmn_users_id.'/edit') }}"
-                                        class="btn btn-success btn-block">Edit</a>
+                                <div class="col mb-1">
+                                    <a href="{{ url('users/'.$user->bsl_cmn_users_id.'/edit') }}" class="btn btn-success btn-block">Edit</a>
                                 </div>
                                 <div class="col">
-                                    <a href="{{ url('users/'.$user->bsl_cmn_users_id.'/delete') }}"
-                                        class="btn btn-danger btn-block">Delete</a>
+                                    <a href="{{ url('users/'.$user->bsl_cmn_users_id.'/delete') }}" class="btn btn-danger btn-block">Delete</a>
                                 </div>
                             </div>
                         </td>
@@ -80,19 +88,19 @@ Admin | Roles
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
 <script>
-$(document).ready(function() {
-    var table = $('#users-table').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": true,
-        "ordering": false,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-        "pageLength": 10 // Display 10 rows per page
+    $(document).ready(function() {
+        var table = $('#users-table').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "pageLength": 10 // Display 10 rows per page
+        });
+
+
     });
-
-
-});
 </script>
 @stop

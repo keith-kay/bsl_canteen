@@ -55,9 +55,9 @@ Admin | Edit User
                         <div class="mb-2">
                             <label for="user_type_id" class="form-label">Company</label>
                             <select class="form-select" id="user_type_id" name="user_type_id" required>
-                                <option value="">Select Company</option>
+                                <option value="">Select User Type</option>
                                 @foreach ($userTypes as $userTypeId => $userTypeName)
-                                <option value="{{ $userTypeId }}" {{ $user->bsl_cmn_users_usertype == $userTypeId ? 'selected' : '' }}>
+                                <option value="{{ $userTypeId }}" {{ $user->bsl_cmn_users_type == $userTypeId ? 'selected' : '' }}>
                                     {{ $userTypeName }}
                                 </option>
                                 @endforeach
@@ -74,6 +74,16 @@ Admin | Edit User
                                 </option>
                                 @endforeach
                                 @error('roles')<span class="text-danger">{!! $message !!}</span>@enderror
+                            </select>
+                        </div>
+                        <div class="mb-3 mt-3 col-lg-6">
+                            <label for="user_type_id" class="form-label fw-bold">Shifts</label>
+                            <select name="shifts[]" id="shifts" class="form-control" required>
+                                @foreach($allShifts as $shiftId => $shiftName)
+                                <option value="{{ $shiftId }}" {{ $user->shifts->contains($shiftId) ? 'selected' : '' }}>
+                                    {{ $shiftName }}
+                                </option>
+                                @endforeach
                             </select>
                         </div>
                         <input type="hidden" id="status" name="status" value="1">

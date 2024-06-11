@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\PinMail;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use App\Models\Shifts;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
@@ -120,18 +121,21 @@ class UserController extends Controller
     }
     public function index()
     {
-        $users = CustomUser::with('userType')->get();
+        $users = CustomUser::with('userType', 'shifts')->get();
+        $shifts = Shifts::all();
 
-        return view('admin.users.index', ['users' => $users]);
+        return view('admin.users.index', ['users' => $users, 'shifts' => $shifts]);
     }
 
     public function create()
     {
         $roles = Role::pluck('name', 'name')->all();
+        $shifts = Shifts::pluck('bsl_cmn_shifts_name', 'bsl_cmn_shifts_id')->all();
         $userTypes = User_type::pluck('bsl_cmn_user_types_name', 'bsl_cmn_user_types_id');
         return view('admin.users.create', [
             'roles' => $roles,
-            'userTypes' => $userTypes
+            'userTypes' => $userTypes,
+            'shifts' => $shifts
         ]);
     }
     public function store(Request $request)
@@ -151,6 +155,7 @@ class UserController extends Controller
                 'email' => 'nullable|email',
                 'department' =>  'nullable|string',
                 'roles' => 'required',
+                'shift' => 'required',
             ]);
 
             // Check if email exists before sending
@@ -185,6 +190,7 @@ class UserController extends Controller
 
         //dd($user);
         $user->syncRoles($request->roles);
+        $user->shifts()->attach($request->input('shift'));
 
         return redirect('/users')->with('status', 'User created successfully with roles');
     }
@@ -193,16 +199,23 @@ class UserController extends Controller
         $role = Role::pluck('name', 'name')->all();
         $userRoles = $user->roles->pluck('name', 'name')->all();
         $userTypes = User_type::pluck('bsl_cmn_user_types_name', 'bsl_cmn_user_types_id');
+
+        // Retrieve all shifts available (for dropdown selection)
+        $allShifts = Shifts::pluck('bsl_cmn_shifts_name', 'bsl_cmn_shifts_id');
+
+        // Retrieve the user with their associated shifts
+        $user->load('shifts');
+
         return view('admin.users.edit', [
             'user' => $user,
             'roles' => $role,
             'userTypes' => $userTypes,
-            'userRoles' => $userRoles
+            'userRoles' => $userRoles,
+            'allShifts' => $allShifts,
         ]);
     }
-    public function update(Request $request, CustomUser  $user)
+    public function update(Request $request, CustomUser $user)
     {
-
         $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -211,9 +224,11 @@ class UserController extends Controller
             'user_type_id' => 'required|string',
             'status' => 'required|string',
             'email' => 'nullable|email',
-            'department' =>  'nullable|string',
+            'department' => 'nullable|string',
             'roles' => 'required',
+            'shifts' => 'nullable|array',
         ]);
+
         $data = [
             'bsl_cmn_users_firstname' => $request->firstname,
             'bsl_cmn_users_lastname' => $request->lastname,
@@ -225,14 +240,16 @@ class UserController extends Controller
         ];
 
         if (!empty($request->password)) {
-            $data +=  [
-                'password' => Hash::make($request->password),
-            ];
+            $data['password'] = Hash::make($request->password);
         }
 
         $user->update($data);
         $user->syncRoles($request->roles);
-        return redirect('/users')->with('status', 'User created successfully with roles');
+
+        // Sync the shifts for the user based on the submitted form data
+        $user->shifts()->sync($request->input('shifts', []));
+
+        return redirect('/users')->with('status', 'User updated successfully with roles and shifts');
     }
     public function destroy($userid)
     {

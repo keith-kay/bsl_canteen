@@ -42,7 +42,7 @@ class PrintersController extends Controller
             'port' => 'required|string',
             'site_id' => 'required|string',
         ]);
-        //create a site
+        //create a printer
         Printers::create([
             'site_id' => $request->site_id,
             'status' => $request->status,

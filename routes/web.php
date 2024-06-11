@@ -11,6 +11,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MealticketController;
 use App\Http\Controllers\PrintersController;
 use App\Http\Controllers\SitesController;
+use App\Http\Controllers\ShiftController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -41,6 +42,9 @@ Route::get('sites/{siteid}/delete', [App\Http\Controllers\SitesController::class
 
 Route::resource('printers', PrintersController::class);
 Route::get('printers/{printerid}/delete', [App\Http\Controllers\PrintersController::class, 'destroy']);
+
+Route::resource('shifts', ShiftController::class);
+Route::get('shifts/{shiftid}/delete', [App\Http\Controllers\ShiftController::class, 'destroy']);
 
 
 Route::get('/ticket', [MealticketController::class, 'index'])->name('ticket');

@@ -74,4 +74,8 @@ class CustomUser extends Model implements Authenticatable
         // Check if the user has the "admin" or "super-admin" role
         return $this->hasRole('admin') || $this->hasRole('super-admin');
     }
+    public function shifts()
+    {
+        return $this->belongsToMany(Shifts::class, 'user_has_shifts', 'user_id', 'shift_id');
+    }
 }

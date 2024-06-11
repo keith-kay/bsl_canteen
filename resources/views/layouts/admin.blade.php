@@ -142,6 +142,11 @@
                             <i class="bi bi-circle"></i><span>Printers</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ url('shifts') }}">
+                            <i class="bi bi-circle"></i><span>Shifts</span>
+                        </a>
+                    </li>
                 </ul>
             </li><!-- End Users Nav -->
 
