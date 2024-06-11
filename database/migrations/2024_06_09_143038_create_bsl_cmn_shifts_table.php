@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_has_shifts', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('shift_id');
-            $table->timestamps();
-
-            // Adjust foreign key references
-            $table->foreign('user_id')->references('bsl_cmn_users_id')->on('bsl_cmn_users')->onDelete('cascade');
-            $table->foreign('shift_id')->references('bsl_cmn_shifts_id')->on('bsl_cmn_shifts')->onDelete('cascade');
-
-            $table->primary(['user_id', 'shift_id']);
+        Schema::create('bsl_cmn_shifts', function (Blueprint $table) {
+            $table->id('bsl_cmn_shifts_id');
+            $table->string('bsl_cmn_shifts_name');
+            $table->time('bsl_cmn_shifts_starttime');
+            $table->time('bsl_cmn_shifts_endtime');
+            $table->integer('bsl_cmn_shifts_mealsnumber');
+            $table->timestamps(); // This will create created_at and updated_at columns
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_has_shifts');
+        Schema::dropIfExists('bsl_cmn_shifts');
     }
 };
