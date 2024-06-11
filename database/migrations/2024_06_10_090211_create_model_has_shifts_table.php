@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('model_type');
             $table->unsignedInteger('model_id'); // Changed column name
             $table->timestamps();
-
             // Define foreign key constraints
             $table->foreign('model_id')->references('bsl_cmn_users_id')->on('bsl_cmn_users')->onDelete('cascade');
         });
