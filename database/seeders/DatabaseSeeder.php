@@ -85,5 +85,13 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
+        ## CALL EXTERNAL SEEDERS
+        $this->call([
+            SiteSeeder::class,
+            ShiftSeeder::class,
+            MealTypeSeeder::class,
+            PrinterSeeder::class,
+        ]);
+
     }
 }
