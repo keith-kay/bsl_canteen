@@ -10,11 +10,6 @@ class ShiftSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *  $table->string('bsl_cmn_shifts_name');
-            $table->time('bsl_cmn_shifts_starttime');
-            $table->time('bsl_cmn_shifts_endtime');
-            $table->integer('bsl_cmn_shifts_mealsnumber');
-           
      */
     public function run(): void
     {
