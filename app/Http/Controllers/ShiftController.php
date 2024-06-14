@@ -39,7 +39,7 @@ class ShiftController extends Controller
         ]);
 
 
-        return redirect('shifts')->with('status', 'Role Created Successfully');
+        return redirect('shifts')->with('success', 'Role Created Successfully');
     }
     public function edit(Shifts $shift)
     {
@@ -63,12 +63,12 @@ class ShiftController extends Controller
             'bsl_cmn_shifts_mealsnumber' => $request->noofmeals
         ]);
 
-        return redirect('shifts')->with('status', 'Shift Updated Successfully');
+        return redirect('shifts')->with('success', 'Shift Updated Successfully');
     }
     public function destroy($shiftId)
     {
         $shift = Shifts::find($shiftId);
         $shift->delete();
-        return redirect('shifts')->with('status', 'Shift Deleted Successfully');
+        return redirect('shifts')->with('error', 'Shift Deleted Successfully');
     }
 }

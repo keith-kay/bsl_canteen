@@ -17,6 +17,7 @@ use App\Models\User_type;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use App\Services\PrintHelper;
+use Illuminate\Support\Facades\Log;
 
 class MealSelectionController extends Controller
 {
@@ -106,22 +107,41 @@ class MealSelectionController extends Controller
         return redirect('/dashboard')->with('success', 'Meal selection logged and ticket printed successfully!');
     }
 
-    public function printTest(Request $request)
+    public function printTest(Request $request, $printerId)
     {
-        $sourceDevice = $request->ip();
-        $site = Sites::where('bsl_cmn_sites_device_ip', $sourceDevice)->first();
-        $sitePrinter = $site->printer->first();
-        #
+        // Validate request data
+        $request->validate([
+            'printer_address' => 'required',
+            'printer_port' => 'required',
+        ]);
+
+        // Get printer address and port from the request
+        $printerAddress = $request->input('printer_address');
+        $printerPort = $request->input('printer_port');
+
+        // Log the printer address and port for debugging
+        Log::info('Printer Address: ' . $printerAddress);
+        Log::info('Printer Port: ' . $printerPort);
+
         $mealDetails = (object)[
             'staffid' => '123456',
-            'userName' => 'Victor Mtange',
-            'company' => 'Mumo Humo Inc.',
-            'department' => 'IT',
-            'mealtype' => 'Brunch',
-            'date' => '2030-09-01 12:00:00',
+            'userName' => 'John Doe',
+            'company' => 'Bulkstream Limited',
+            'department' => 'Test',
+            'mealtype' => 'Test Meal',
+            'date' => Carbon::now()->toDateTimeString(),
         ];
-        ## Handle "Cannot initialise NetworkPrintConnector: No route to host"
-        $printer = new PrintHelper($sitePrinter->address, $sitePrinter->port);
-        $printer->printMealTicket($mealDetails);
+
+        try {
+            // Attempt to create a new PrintHelper instance and send the print job
+            $printer = new PrintHelper($printerAddress, $printerPort);
+            $printer->printMealTicket($mealDetails);
+
+            // Return a successful response
+            return redirect()->back()->with('success', 'Test print job sent successfully.');
+        } catch (\Exception $e) {
+            // Return an error response with the exception message
+            return redirect()->back()->with('error', 'Failed to send test print job: ' . $e->getMessage());
+        }
     }
 }

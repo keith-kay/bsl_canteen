@@ -46,6 +46,8 @@ Route::get('printers/{printerid}/delete', [App\Http\Controllers\PrintersControll
 Route::resource('shifts', ShiftController::class);
 Route::get('shifts/{shiftid}/delete', [App\Http\Controllers\ShiftController::class, 'destroy']);
 
+Route::post('/printers/{printer}/test', [MealSelectionController::class, 'printTest'])->name('printers.test');
+
 
 Route::get('/ticket', [MealticketController::class, 'index'])->name('ticket');
 //});

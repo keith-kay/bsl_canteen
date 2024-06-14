@@ -192,7 +192,7 @@ class UserController extends Controller
         $user->syncRoles($request->roles);
         $user->shifts()->attach($request->input('shift'));
 
-        return redirect('/users')->with('status', 'User created successfully with roles');
+        return redirect('/users')->with('success', 'User created successfully with roles');
     }
     public function edit(CustomUser $user)
     {
@@ -249,7 +249,7 @@ class UserController extends Controller
         // Sync the shifts for the user based on the submitted form data
         $user->shifts()->sync($request->input('shifts', []));
 
-        return redirect('/users')->with('status', 'User updated successfully with roles and shifts');
+        return redirect('/users')->with('success', 'User updated successfully with roles and shifts');
     }
     public function destroy($userid)
     {

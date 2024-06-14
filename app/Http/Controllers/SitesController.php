@@ -30,7 +30,7 @@ class SitesController extends Controller
             'bsl_cmn_sites_device_ip' => $request->device_ip
         ]);
 
-        return redirect('sites')->with('status', 'Site Created Successfully');
+        return redirect('sites')->with('success', 'Site Created Successfully');
     }
     public function edit(Sites $site)
     {
@@ -53,12 +53,12 @@ class SitesController extends Controller
             'bsl_cmn_sites_device_ip' => $request->device_ip
         ]);
 
-        return redirect('sites')->with('status', 'Site Updated Successfully');
+        return redirect('sites')->with('success', 'Site Updated Successfully');
     }
     public function destroy($siteId)
     {
         $site = Sites::find($siteId);
         $site->delete();
-        return redirect('sites')->with('status', 'Site Deleted Successfully');
+        return redirect('sites')->with('error', 'Site Deleted Successfully');
     }
 }
