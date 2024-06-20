@@ -96,13 +96,13 @@ class MealSelectionController extends Controller
             'date' => $logTime,
         ];
 
-        // $sourceDevice = $request->ip();
-        // $site = Sites::where('bsl_cmn_sites_device_ip', $sourceDevice)->first();
-        // $sitePrinter = $site->printer->first();
+        $sourceDevice = $request->ip();
+        $site = Sites::where('bsl_cmn_sites_device_ip', $sourceDevice)->first();
+        $sitePrinter = $site->printer->first();
 
-        // // Handle printing
-        // $printer = new PrintHelper($sitePrinter->address, $sitePrinter->port);
-        // $printer->printMealTicket($mealDetails);
+        // Handle printing
+        $printer = new PrintHelper($sitePrinter->address, $sitePrinter->port);
+        $printer->printMealTicket($mealDetails);
 
         return redirect('/dashboard')->with('success', 'Meal selection logged and ticket printed successfully!');
     }
