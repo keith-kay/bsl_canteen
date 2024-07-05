@@ -126,9 +126,9 @@
         </div>
         <!-- Display IP Address -->
         <div class="row">
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
                 <h5>Your IP Address: {{ $ip_address }}</h5>
-            </div>
+            </div> -->
         </div>
         <div class="container">
             <!-- Main Content -->
