@@ -29,7 +29,7 @@ class RoleController extends Controller
         //create a permission
         Role::create(['name' => $request->name]);
 
-        return redirect('roles')->with('status', 'Role Created Successfully');
+        return redirect('roles')->with('success', 'Role Created Successfully');
     }
     public function edit(Role $role)
     {
@@ -44,13 +44,13 @@ class RoleController extends Controller
         //update permission
         $role->update(['name' => $request->name]);
 
-        return redirect('roles')->with('status', 'Role Updated Successfully');
+        return redirect('roles')->with('success', 'Role Updated Successfully');
     }
     public function destroy($roleId)
     {
         $role = Role::find($roleId);
         $role->delete();
-        return redirect('roles')->with('status', 'Role Deleted Successfully');
+        return redirect('roles')->with('error', 'Role Deleted Successfully');
     }
     public function addPermissionToRole($roleId)
     {
@@ -74,6 +74,6 @@ class RoleController extends Controller
         $role->syncPermissions($request->permission);
 
 
-        return redirect()->back()->with('status', 'Permissions added to role');
+        return redirect()->back()->with('success', 'Permissions added to role');
     }
 }

@@ -66,11 +66,19 @@ class MealSelectionController extends Controller
             return redirect('/dashboard')->with('error', 'You have already reached the maximum number of meals for your shift.');
         }
 
+        // Get the current request's IP
+        $sourceDevice = $request->ip();
+
+        // Fetch the site based on the IP
+        $site = Sites::where('bsl_cmn_sites_device_ip', $sourceDevice)->first();
+        $siteId = $site ? $site->bsl_cmn_sites_id : null;
+
         // Create a new Logs entry
         $log = new Logs();
         $log->bsl_cmn_logs_mealtype = $validatedData['meal_type_id'];
         $log->bsl_cmn_logs_person = $userId;
         $log->bsl_cmn_logs_time = now();
+        $log->bsl_cmn_logs_site = $siteId;
         $log->save();
 
         // Fetch the latest log entry for the selected meal type
@@ -94,6 +102,7 @@ class MealSelectionController extends Controller
             'company' => $user->userType->bsl_cmn_user_types_name,
             'mealtype' => $mealType->bsl_cmn_mealtypes_mealname,
             'date' => $logTime,
+            'site' => $site ? $site->bsl_cmn_sites_name : 'Unknown'
         ];
 
         $sourceDevice = $request->ip();
@@ -130,6 +139,7 @@ class MealSelectionController extends Controller
             'department' => 'Test',
             'mealtype' => 'Test Meal',
             'date' => Carbon::now()->toDateTimeString(),
+            'site' => 'Test Site'
         ];
 
         try {

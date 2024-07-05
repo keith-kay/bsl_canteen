@@ -15,6 +15,7 @@ class Logs extends Model
         'bsl_cmn_logs.person',
         'bsl_cmn_logs_mealtype',
         'bsl_cmn_logs.time',
+        'bsl_cmn_logs_site',
     ];
     public function user()
     {
@@ -24,5 +25,10 @@ class Logs extends Model
     public function mealType()
     {
         return $this->belongsTo(MealType::class, 'bsl_cmn_logs_mealtype', 'bsl_cmn_mealtypes_id');
+    }
+
+    public function site()
+    {
+        return $this->belongsTo(Sites::class, 'bsl_cmn_logs_site', 'bsl_cmn_sites_id');
     }
 }

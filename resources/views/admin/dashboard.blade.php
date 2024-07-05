@@ -107,8 +107,7 @@ Admin | Dashboard
             <h5 class="card-title">Tickets <span>/
                     @php
                     $currentHour = date('H'); // Get current hour
-                    if ($currentHour >= 7 && $currentHour < 19) { echo 'Day Shift' ; } else { echo 'Night Shift' ; }
-                        @endphp </span>
+                    if ($currentHour >= 7 && $currentHour < 19) { echo 'Day Shift' ; } else { echo 'Night Shift' ; } @endphp </span>
             </h5>
             <table id="reports-table" class="table table-border-less table-striped">
                 <thead>
@@ -130,7 +129,7 @@ Admin | Dashboard
                     <tr>
                         <td>{{ $log->user->bsl_cmn_users_firstname }} {{ $log->user->bsl_cmn_users_lastname }}</td>
                         <td>{{ $log->user->userType->bsl_cmn_user_types_name }}</td>
-                        <td>{{ $log->mealType->site->bsl_cmn_sites_name }}</td>
+                        <td>{{ $log->site ? $log->site->bsl_cmn_sites_name : 'No site available' }}</td>
                         <td>{{ $log->mealType->bsl_cmn_mealtypes_mealname }}</td>
                         <td>{{ $log->bsl_cmn_logs_time }}</td>
                         <td>
@@ -158,62 +157,62 @@ Admin | Dashboard
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
 <script>
-$(document).ready(function() {
-    var table = $('#reports-table').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": false,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-        "pageLength": 10 // Display 10 rows per page
-    });
-
-    $('#export-btn').on('click', function(event) {
-        event.preventDefault(); // Prevent the default action of the button
-        exportDataToExcel();
-    });
-
-    // Function to export data to Excel
-    function exportDataToExcel() {
-        // Initialize the DataTable
-        var table = $('#reports-table').DataTable();
-
-        // Get filtered data (visible rows)
-        var filteredData = [];
-        table.rows({
-            search: 'applied'
-        }).every(function() {
-            filteredData.push(this.data());
+    $(document).ready(function() {
+        var table = $('#reports-table').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "pageLength": 10 // Display 10 rows per page
         });
 
-        // Extract column headers from the DataTable
-        var columnHeaders = table.columns().header().toArray().map(function(header) {
-            return $(header).text().trim();
+        $('#export-btn').on('click', function(event) {
+            event.preventDefault(); // Prevent the default action of the button
+            exportDataToExcel();
         });
 
-        // Create export data array with column headers
-        var exportData = [columnHeaders];
+        // Function to export data to Excel
+        function exportDataToExcel() {
+            // Initialize the DataTable
+            var table = $('#reports-table').DataTable();
 
-        // Iterate through filtered data and add to exportData array
-        filteredData.forEach(function(rowData) {
-            var rowDataTrimmed = rowData.map(function(cellData) {
-                return cellData.trim(); // Trim whitespace from each cell data
+            // Get filtered data (visible rows)
+            var filteredData = [];
+            table.rows({
+                search: 'applied'
+            }).every(function() {
+                filteredData.push(this.data());
             });
-            exportData.push(rowDataTrimmed);
-        });
 
-        // Create a worksheet with the extracted data
-        var ws = XLSX.utils.aoa_to_sheet(exportData);
+            // Extract column headers from the DataTable
+            var columnHeaders = table.columns().header().toArray().map(function(header) {
+                return $(header).text().trim();
+            });
 
-        // Create a workbook and add the worksheet
-        var wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'FilteredReportData');
+            // Create export data array with column headers
+            var exportData = [columnHeaders];
 
-        // Save the workbook to an Excel file
-        XLSX.writeFile(wb, 'MealTicketsReport_data.xlsx');
-    }
-});
+            // Iterate through filtered data and add to exportData array
+            filteredData.forEach(function(rowData) {
+                var rowDataTrimmed = rowData.map(function(cellData) {
+                    return cellData.trim(); // Trim whitespace from each cell data
+                });
+                exportData.push(rowDataTrimmed);
+            });
+
+            // Create a worksheet with the extracted data
+            var ws = XLSX.utils.aoa_to_sheet(exportData);
+
+            // Create a workbook and add the worksheet
+            var wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'FilteredReportData');
+
+            // Save the workbook to an Excel file
+            XLSX.writeFile(wb, 'MealTicketsReport_data.xlsx');
+        }
+    });
 </script>
 @stop

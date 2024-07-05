@@ -51,7 +51,7 @@ class PrintersController extends Controller
             'address' => $request->address
         ]);
 
-        return redirect()->route('printers.index')->with('status', 'Printer Created Successfully');
+        return redirect('printers')->with('success', 'Printer Created Successfully');
     }
 
     /**
@@ -102,10 +102,10 @@ class PrintersController extends Controller
             $printer->save();
 
             // Redirect to the printer index page with a success message
-            return redirect()->route('printer.index')->with('status', 'Printer Updated Successfully');
+            return redirect('printers')->with('success', 'Printer Updated Successfully');
         } else {
             // If the printer is not found, redirect back with an error message
-            return redirect()->route('printer.index')->with('error', 'Printer Not Found');
+            return redirect('printers')->with('error', 'Printer Not Found');
         }
     }
 
@@ -120,6 +120,6 @@ class PrintersController extends Controller
         $printer->delete();
 
         // Redirect back to the index page with a success message
-        return redirect()->route('printer.index')->with('status', 'Printer Deleted Successfully');
+        return redirect('printers')->with('error', 'Printer Deleted Successfully');
     }
 }

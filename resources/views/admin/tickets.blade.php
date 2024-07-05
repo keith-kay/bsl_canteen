@@ -4,8 +4,6 @@
 Admin | Tickets
 @stop
 
-
-
 @section('report')
 <div class="col-lg-12">
     <div class="card">
@@ -15,7 +13,6 @@ Admin | Tickets
             <table id="reports-table" class="table table-border-less table-striped my-3">
                 <thead>
                     <tr>
-
                         <th>Name</th>
                         <th>Staff No</th>
                         <th>Company</th>
@@ -59,63 +56,41 @@ Admin | Tickets
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
 <script>
-$(document).ready(function() {
-    var table = $('#reports-table').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-        "pageLength": 10 // Display 10 rows per page
-    });
+    $(document).ready(function() {
+        var table = $('#reports-table').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "pageLength": 10 // Display 10 rows per page
+        });
 
-    // Print Button Click Event
-    $('#reports-table').on('click', '.print-btn', function() {
-        // Extract user ID from the data attribute of the table row
-        var userId = $(this).closest('tr').data('user-id');
+        // Print Button Click Event
+        $('#reports-table').on('click', '.print-btn', function() {
+            // Extract user ID from the data attribute of the table row
+            var userId = $(this).closest('tr').data('user-id');
 
-        // Extract data from the table row
-        var $row = $(this).closest('tr');
-        var name = $row.find('td:eq(0)').text().trim();
-        var staffNo = $row.find('td:eq(1)').text().trim();
-        var company = $row.find('td:eq(2)').text().trim();
-        var department = $row.find('td:eq(4)').text().trim();
-        var mealType = $row.find('td:eq(5)').text().trim();
-        var timestamp = $row.find('td:eq(6)').text().trim();
-
-        // Construct the data to be sent in the POST request
-        var requestData = {
-            userid: userId,
-            userdetails: name,
-            staffid: staffNo,
-            department: department,
-            company: company,
-            mealType: mealType,
-            date: timestamp
-        };
-
-        // Log the JSON data being passed
-        console.log('Data to be sent:', JSON.stringify(requestData));
-
-        // Send the data in a POST request to the printer endpoint
-        $.ajax({
-            url: 'http://api.bulkstream.com:1416/mealprint.php?userid=' + userId +
-                '&printerid=TCMEAL',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(requestData),
-            success: function(response) {
-                console.log('Printing successful:', response);
-                // Optionally, you can handle the response here
-            },
-            error: function(xhr, status, error) {
-                console.error('Error printing:', error);
-                // Optionally, you can handle errors here
-            }
+            // Send the data in a POST request to the printTicket endpoint
+            $.ajax({
+                url: '{{ route("print.ticket") }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    userid: userId
+                },
+                success: function(response) {
+                    console.log('Printing initiated:', response);
+                    // Optionally, you can handle the response here
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error printing:', error);
+                    // Optionally, you can handle errors here
+                }
+            });
         });
     });
-});
 </script>
 @stop

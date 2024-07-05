@@ -12,7 +12,7 @@ class ReportController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $logs = Logs::with('user', 'mealType')->get();
+        $logs = Logs::with('user', 'mealType', 'site')->get();
 
         return view('admin.reports', ['logs' => $logs]);
     }

@@ -39,7 +39,7 @@ class ShiftController extends Controller
         ]);
 
 
-        return redirect('shifts')->with('success', 'Role Created Successfully');
+        return redirect('shifts')->with('success', 'Shift Created Successfully');
     }
     public function edit(Shifts $shift)
     {

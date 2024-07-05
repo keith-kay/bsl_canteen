@@ -24,7 +24,7 @@ class CompanyController extends Controller
         //create a company
         User_type::create(['bsl_cmn_user_types_name' => $request->name]);
 
-        return redirect('companies')->with('status', 'Company Created Successfully');
+        return redirect('companies')->with('success', 'Company Created Successfully');
     }
     public function edit(User_type $company)
     {
@@ -41,12 +41,12 @@ class CompanyController extends Controller
         //update permission
         $company->update(['bsl_cmn_user_types_name' => $request->name]);
 
-        return redirect('companies')->with('status', 'Company Updated Successfully');
+        return redirect('companies')->with('success', 'Company Updated Successfully');
     }
     public function destroy($companyId)
     {
         $company = User_type::find($companyId);
         $company->delete();
-        return redirect('companies')->with('status', 'Company Deleted Successfully');
+        return redirect('companies')->with('error', 'Company Deleted Successfully');
     }
 }

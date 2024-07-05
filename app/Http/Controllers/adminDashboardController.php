@@ -13,7 +13,7 @@ class adminDashboardController extends Controller
     {
         $user = Auth::user();
 
-        $logs = Logs::with('user', 'mealType')
+        $logs = Logs::with('user', 'mealType', 'site')
             ->whereDate('bsl_cmn_logs_time', now()->toDateString())
             ->get();
         //$logCount = $logs->count();
