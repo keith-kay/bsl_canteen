@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('images/gbhl-logo.jpg') }}">
+    <link rel="icon" href="{{ asset('images/favicon-32x32.png') }}" type="image/x-icon">
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=YourDesiredFont">
@@ -25,7 +25,7 @@
                 <div class="alert alert-danger">{{Session::get('fail')}}</div>
                 @endif
                 <div class="form-group my-3">
-                    <img src="{{ asset('images/bslogo.png') }}" alt="Logo" style="max-width: 70%;">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" style="max-width: 70%;">
                     <h4>Admin-Login</h4>
 
                     @csrf
