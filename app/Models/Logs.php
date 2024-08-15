@@ -10,6 +10,7 @@ class Logs extends Model
     use HasFactory;
 
     protected $table = 'bsl_cmn_logs';
+    protected $primaryKey = 'bsl_cmn_logs_id';
 
     protected $fillable = [
         'bsl_cmn_logs.person',

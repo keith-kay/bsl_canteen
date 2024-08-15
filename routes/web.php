@@ -34,6 +34,8 @@ Route::put('roles/{roleid}/give-permissions', [App\Http\Controllers\RoleControll
 Route::resource('users', App\Http\Controllers\UserController::class);
 Route::get('users/{userid}/delete', [App\Http\Controllers\UserController::class, 'destroy']);
 
+Route::get('logs/{ticketid}/delete', [App\Http\Controllers\MealticketController::class, 'destroy']);
+
 Route::resource('companies', CompanyController::class);
 Route::get('companies/{companyid}/delete', [App\Http\Controllers\CompanyController::class, 'destroy']);
 

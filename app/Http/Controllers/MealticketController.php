@@ -26,7 +26,10 @@ class MealticketController extends Controller
         ]);
 
         // Retrieve the log entry
-        $log = Logs::with('user', 'mealType')->findOrFail($validatedData['userid']);
+        $log = Logs::with('user', 'mealType', 'site')->findOrFail($validatedData['userid']);
+        // $logs = Logs::with('user', 'mealType', 'site')
+        //     ->whereDate('bsl_cmn_logs_time', now()->toDateString())
+        //     ->get();
 
         // Prepare the data for printing
         $mealDetails = (object) [
@@ -48,5 +51,12 @@ class MealticketController extends Controller
         $printer->printMealTicket($mealDetails);
 
         return response()->json(['success' => 'Printing initiated.']);
+    }
+    public function destroy($ticketid)
+    {
+        $ticket = Logs::findOrFail($ticketid);
+        $ticket->delete();
+
+        return redirect('ticket')->with('error', 'Meal Ticket deleted!');
     }
 }
