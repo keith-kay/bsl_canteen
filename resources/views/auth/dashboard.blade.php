@@ -15,89 +15,89 @@
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
     <style>
-        /* Adjust styles as needed */
-        .landing-page {
-            padding: 50px 0;
-        }
+    /* Adjust styles as needed */
+    .landing-page {
+        padding: 50px 0;
+    }
 
-        .logo {
-            margin-bottom: 20px;
-            max-width: 150px;
-            /* Set maximum width for the logo */
-        }
+    .logo {
+        margin-bottom: 20px;
+        max-width: 150px;
+        /* Set maximum width for the logo */
+    }
 
-        .text-block {
-            background-color: #fff;
-            /* Soft gray */
-            border-radius: 10px;
-            padding: 30px;
-        }
+    .text-block {
+        background-color: #fff;
+        /* Soft gray */
+        border-radius: 10px;
+        padding: 30px;
+    }
 
+    .image-div {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-div img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .btn {
+        background-color: #f8f9fa;
+        color: #153037;
+    }
+
+    .btn:hover {
+        background-color: #153037;
+        color: #f8f9fa;
+        border: solid 2px #f8f9fa;
+    }
+
+    .btn-nav {
+        background-color: #153037;
+        color: #f8f9fa;
+        border: solid 2px #f8f9fa;
+    }
+
+    .btn-nav:hover {
+        background-color: #f8f9fa;
+        color: #153037;
+        border: solid 2px #153037;
+    }
+
+    .tea-description {
+        text-align: center;
+        /* Center-align the text */
+        font-size: 25px;
+        /* Set the font size */
+
+        margin-bottom: 40px;
+        /* Add some top margin */
+    }
+
+
+    @media (max-width: 768px) {
+
+        .text-block,
         .image-div {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
         }
 
-        .image-div img {
-            width: 100%;
-            height: auto;
-            display: block;
+        .d-flex.justify-content-center.mx-auto {
+            max-width: 150px;
+            margin: 0 auto 0 auto;
         }
 
-        .btn {
-            background-color: #f8f9fa;
-            color: #153037;
+        #swal-container {
+            max-width: 200px;
+            /* Set the maximum width */
+            margin: 0 auto;
+            /* Center the container horizontally */
         }
-
-        .btn:hover {
-            background-color: #153037;
-            color: #f8f9fa;
-            border: solid 2px #f8f9fa;
-        }
-
-        .btn-nav {
-            background-color: #153037;
-            color: #f8f9fa;
-            border: solid 2px #f8f9fa;
-        }
-
-        .btn-nav:hover {
-            background-color: #f8f9fa;
-            color: #153037;
-            border: solid 2px #153037;
-        }
-
-        .tea-description {
-            text-align: center;
-            /* Center-align the text */
-            font-size: 25px;
-            /* Set the font size */
-
-            margin-bottom: 40px;
-            /* Add some top margin */
-        }
-
-
-        @media (max-width: 768px) {
-
-            .text-block,
-            .image-div {
-                margin-bottom: 30px;
-            }
-
-            .d-flex.justify-content-center.mx-auto {
-                max-width: 150px;
-                margin: 0 auto 0 auto;
-            }
-
-            #swal-container {
-                max-width: 200px;
-                /* Set the maximum width */
-                margin: 0 auto;
-                /* Center the container horizontally */
-            }
-        }
+    }
     </style>
 </head>
 
@@ -160,7 +160,7 @@
                     </div> -->
 
                     <div class="col-md-6 mt-4">
-                        <a href="javascript:void(0);" onclick="selectMeal(1)" style="text-decoration: none;">
+                        <a href="javascript:void(0);" onclick="selectMeal(2)" style="text-decoration: none;">
                             <div class="image-div">
                                 <div class="d-flex justify-content-center mx-auto"
                                     style="max-width: 300px; max-height: 300px;">
@@ -201,19 +201,19 @@
     <div id="swal-container">
         @if(session('success'))
         <script>
-            Swal.fire({
-                icon: 'success',
-                text: '{{ session("success") }}',
-                footer: 'Please pick your meal ticket!',
-                confirmButtonColor: '#153037',
-                timer: 5000,
-                timerProgressBar: true
-            }).then((result) => {
-                if (result.dismiss === Swal.DismissReason.timer) {
-                    // Log out after 5 seconds
-                    logoutUser();
-                }
-            });
+        Swal.fire({
+            icon: 'success',
+            text: '{{ session("success") }}',
+            footer: 'Please pick your meal ticket!',
+            confirmButtonColor: '#153037',
+            timer: 5000,
+            timerProgressBar: true
+        }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) {
+                // Log out after 5 seconds
+                logoutUser();
+            }
+        });
         </script>
         @endif
     </div>
@@ -221,58 +221,58 @@
     <div id="swal-container">
         @if(session('error'))
         <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: '{{ session("error") }}',
-                confirmButtonColor: '#153037', // Change the color of the confirm button
-                timer: 5000,
-                timerProgressBar: true
-            }).then((result) => {
-                if (result.dismiss === Swal.DismissReason.timer) {
-                    // Log out after 5 seconds
-                    logoutUser();
-                }
-            });
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '{{ session("error") }}',
+            confirmButtonColor: '#153037', // Change the color of the confirm button
+            timer: 5000,
+            timerProgressBar: true
+        }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) {
+                // Log out after 5 seconds
+                logoutUser();
+            }
+        });
         </script>
         @endif
     </div>
 
     <script>
-        function logoutUser() {
-            window.location.href = '/logout';
-        }
+    function logoutUser() {
+        window.location.href = '/logout';
+    }
     </script>
 
     <script>
-        function logFormContent() {
-            var formData = $('#mealSelectionForm').serializeArray();
-            console.log(formData);
-        }
+    function logFormContent() {
+        var formData = $('#mealSelectionForm').serializeArray();
+        console.log(formData);
+    }
 
-        function selectMeal(mealTypeId) {
-            // Set the selected meal type ID in the hidden input field
-            document.getElementById('mealTypeIdInput').value = mealTypeId;
-            // Submit the form
-            document.getElementById('mealSelectionForm').submit();
-        }
+    function selectMeal(mealTypeId) {
+        // Set the selected meal type ID in the hidden input field
+        document.getElementById('mealTypeIdInput').value = mealTypeId;
+        // Submit the form
+        document.getElementById('mealSelectionForm').submit();
+    }
 
-        var logoutTimer; // Variable to store the timeout
+    var logoutTimer; // Variable to store the timeout
 
-        function resetLogoutTimer() {
-            clearTimeout(logoutTimer); // Clear the previous timeout
-            logoutTimer = setTimeout(logoutUser, 10000); // Set a new timeout for 10 seconds
-        }
+    function resetLogoutTimer() {
+        clearTimeout(logoutTimer); // Clear the previous timeout
+        logoutTimer = setTimeout(logoutUser, 10000); // Set a new timeout for 10 seconds
+    }
 
-        function logoutUser() {
-            window.location.href = '/logout'; // Redirect to the logout route
-        }
+    function logoutUser() {
+        window.location.href = '/logout'; // Redirect to the logout route
+    }
 
-        // Reset the logout timer on user activity
-        document.addEventListener('mousemove', resetLogoutTimer);
-        document.addEventListener('keydown', resetLogoutTimer);
-        document.addEventListener('click', resetLogoutTimer);
-        document.addEventListener('scroll', resetLogoutTimer);
+    // Reset the logout timer on user activity
+    document.addEventListener('mousemove', resetLogoutTimer);
+    document.addEventListener('keydown', resetLogoutTimer);
+    document.addEventListener('click', resetLogoutTimer);
+    document.addEventListener('scroll', resetLogoutTimer);
     </script>
 </body>
 
