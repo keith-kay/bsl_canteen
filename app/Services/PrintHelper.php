@@ -30,6 +30,10 @@ class PrintHelper
         $printer->selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
         $printer->setEmphasis(true);
 
+        $resizedLogoPath = $this->resizeImage(public_path('images/logo.png'), 300, 100); // Adjust dimensions as needed
+        $logo = EscposImage::load($resizedLogoPath, false);
+
+        $printer->bitImage($logo);
         $printer->text("MEAL TICKET\n");
         $printer->text("Meal type: " . $mealDetails->mealtype . "\n\n");
         $printer->setEmphasis(false);
@@ -45,6 +49,7 @@ class PrintHelper
         $printer -> feed(2);
    */
         $printer->setJustification(Printer::JUSTIFY_LEFT);
+        
         $printer->text("Staff ID: " . $mealDetails->staffid . "\n");
         $printer->text("Name: " . $mealDetails->userName . "\n");
         // $printer->text("Company: " . $mealDetails->company . "\n");
@@ -67,6 +72,38 @@ class PrintHelper
         $printer->cut();
         # Close the printer connection
         $printer->close();
+    }
+
+    private function resizeImage($file, $width, $height)
+    {
+        list($originalWidth, $originalHeight) = getimagesize($file);
+        $source = imagecreatefrompng($file); // Adjust based on image type, e.g., imagecreatefromjpeg
+
+        $resizedImage = imagecreatetruecolor($width, $height);
+
+        imagealphablending($resizedImage, false);
+        imagesavealpha($resizedImage, true);
+
+        imagecopyresampled(
+            $resizedImage,
+            $source,
+            0,
+            0,
+            0,
+            0,
+            $width,
+            $height,
+            $originalWidth,
+            $originalHeight
+        );
+
+        $resizedFilePath = sys_get_temp_dir() . '/resized_logo.png';
+        imagepng($resizedImage, $resizedFilePath);
+
+        imagedestroy($source);
+        imagedestroy($resizedImage);
+
+        return $resizedFilePath;
     }
 
     private function logToDB($mealDetails)
