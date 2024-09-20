@@ -227,7 +227,16 @@ class UserController extends Controller
             'department' => 'nullable|string',
             'roles' => 'required',
             'shifts' => 'nullable|array',
+            'pin'=> 'required|string|max:4'
         ]);
+        // Check if the PIN already exists for a different user
+        $existingPin = CustomUser::where('bsl_cmn_users_pin', $request->pin)
+        ->where('bsl_cmn_users_id', '!=', $user->bsl_cmn_users_id) 
+        ->first();
+        // dd($existingPin);
+        if ($existingPin) {
+            return redirect()->back()->with('error', 'The PIN already exists for another user.');
+        }
 
         $data = [
             'bsl_cmn_users_firstname' => $request->firstname,
@@ -237,6 +246,7 @@ class UserController extends Controller
             'bsl_cmn_users_status' => $request->status,
             'email' => $request->email,
             'bsl_cmn_users_department' => $request->department,
+            'bsl_cmn_users_pin' => $request->pin,
         ];
 
         if (!empty($request->password)) {

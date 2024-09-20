@@ -52,8 +52,8 @@ Admin | Edit User
                             <input type="password" name="password" value="" class="form-control">
                             @error('password')<span class="text-danger">{!! $message !!}</span>@enderror
                         </div>
-                        <div class="mb-2">
-                            <label for="user_type_id" class="form-label">Company</label>
+                        <div class="mb-2 col-lg-6">
+                            <label for="user_type_id" class="form-label fw-bold">Company</label>
                             <select class="form-select" id="user_type_id" name="user_type_id" required>
                                 <option value="">Select User Type</option>
                                 @foreach ($userTypes as $userTypeId => $userTypeName)
@@ -64,7 +64,11 @@ Admin | Edit User
                             </select>
                             @error('user_type_id')<span class="text-danger">{!! $message !!}</span>@enderror
                         </div>
-
+                        <div class="mb-2 col-lg-6">
+                            <label for="name" class="fw-bold">Pin</label>
+                            <input type="text" name="pin" value="{{$user->bsl_cmn_users_pin}}" class="form-control">
+                            @error('pin')<span class="text-danger">{!! $message !!}</span>@enderror
+                        </div>
                         <div class="mb-3 mt-3 col-lg-6">
                             <label for="name" class="fw-bold">Roles</label>
                             <select name="roles[]" class="form-control" multiple>
