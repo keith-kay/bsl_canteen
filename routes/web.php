@@ -59,6 +59,7 @@ Route::get('/ticket', [MealticketController::class, 'index'])->name('ticket');
 
 Route::get('/admin/dashboard', [adminDashboardController::class, 'adminDashboard'])->name('admin.dashboard');
 Route::get('/fetch-companies', [ReportController::class, 'fetchCompanies'])->name('fetch.companies');
+Route::get('/fetch-sites', [ReportController::class, 'fetchSites'])->name('fetch.sites');
 Route::get('/report', [ReportController::class, 'index'])->name('report');
 
 

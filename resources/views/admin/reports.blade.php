@@ -46,7 +46,7 @@ Admin | Reports
 
             <!-- Meal Type filtering options -->
             <div class="form-group row mt-3">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <label class="col-form-label fw-bold">Meal Type:</label>
                     <div>
                         <div class="form-check form-check-inline">
@@ -59,10 +59,17 @@ Admin | Reports
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <label class="col-form-label fw-bold">Company:</label>
                     <select class="form-select" id="company-select">
                         <option value="">Select a company</option>
+
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col-form-label fw-bold">Site:</label>
+                    <select class="form-select" id="site-select">
+                        <option value="">Select a site</option>
 
                     </select>
                 </div>
@@ -139,6 +146,21 @@ Admin | Reports
             }
         });
 
+        // Fetch and populate the company dropdown
+        $.ajax({
+            url: "{{ route('fetch.sites') }}",
+            method: 'GET',
+            success: function(data) {
+                var companySelect = $('#site-select');
+                companySelect.empty();
+                companySelect.append('<option value="">Select a site</option>');
+                $.each(data, function(index, value) {
+                    companySelect.append('<option value="' + value + '">' + value +
+                        '</option>');
+                });
+            }
+        });
+
         // Function to filter table based on date range, meal types, and selected company
         function applyFilters() {
             var fromDate = $('#from_date').val();
@@ -147,7 +169,7 @@ Admin | Reports
                 return this.value;
             }).get();
             var selectedCompany = $('#company-select').val(); // Get the selected company
-
+            var selectedSite = $('#site-select').val();
             table.draw(); // Redraw the table with new filters
         }
 
@@ -167,6 +189,11 @@ Admin | Reports
 
         // Company dropdown change event handler
         $('#company-select').on('change', function() {
+            applyFilters(); // Apply filters when company selection changes
+        });
+
+        // Company dropdown change event handler
+        $('#site-select').on('change', function() {
             applyFilters(); // Apply filters when company selection changes
         });
 
@@ -227,6 +254,7 @@ Admin | Reports
                     return this.value;
                 }).get();
                 var selectedCompany = $('#company-select').val(); // Get the selected company
+                var selectedSite = $('#site-select').val(); // Get the selected site
 
                 // Filter by date range
                 if ((fromDate !== '' && toDate !== '') && (logDate < fromDate || logDate > toDate)) {
@@ -241,6 +269,12 @@ Admin | Reports
                 // Filter by selected company
                 if (selectedCompany !== '' && data[2] !==
                     selectedCompany) { // Assuming company column is at index 2
+                    return false;
+                }
+
+                // Filter by selected company
+                if (selectedSite !== '' && data[3] !==
+                    selectedSite) { // Assuming company column is at index 2
                     return false;
                 }
 
