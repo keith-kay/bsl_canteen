@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         // Register your custom Artisan commands here
         \App\Console\Commands\GenerateUserPins::class, // Add your command here
+        \App\Console\Commands\ImportUsersFromCSV::class,
     ];
 
     /**
