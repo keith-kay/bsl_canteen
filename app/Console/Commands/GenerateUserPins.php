@@ -45,8 +45,13 @@ class GenerateUserPins extends Command
 
             // Update the user with the new PIN
             $user->bsl_cmn_users_pin = $pin;
-            $user->save();
-
+	    try{
+	    	$user->save();
+	    } catch(\Exception $e){
+		    $this->info('PIN generation failed for user: ['.$user->email.'] Due to: '.$e->getMessage());
+		    report($e);
+		    continue;
+	    }
             // Send the PIN via email
             Mail::to($user->email)->send(new PinMail($pin));
 

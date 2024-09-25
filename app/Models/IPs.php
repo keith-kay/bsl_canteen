@@ -9,11 +9,11 @@ class IPs extends Model
 {
     use HasFactory;
 
-    protected $table = 'bsl_cmn_IPs';
-    protected $primaryKey = 'bsl_cmn_IPs_id';
+    protected $table = 'bsl_cmn_ips';
+    protected $primaryKey = 'bsl_cmn_ips_id';
 
     protected $fillable = [
-        'bsl_cmn_IPs_name',
-        'bsl_cmn_IPs_address',
+        'bsl_cmn_ips_name',
+        'bsl_cmn_ips_address',
     ];
 }

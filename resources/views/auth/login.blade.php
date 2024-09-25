@@ -25,7 +25,7 @@
             <h4 style="color: #153037; font-weight:600;" class="fw-bold mt-3 mb-2">Enter Pin</h4>
 
             <div class="mb-3  mt-4">
-                <input type="password" required class="form-control custom-input" id="pin" name="pin" placeholder="****" value="">
+                <input type="password" required class="form-control custom-input" id="pin" inputmode="numeric" name="pin" placeholder="****" value="">
                 <span class="text-danger">@error('email') {{ $message }} @enderror</span>
             </div>
 
@@ -33,5 +33,12 @@
         </div>
     </form>
 </div>
+<script>
+  const input = document.getElementById('pin');
+  input.addEventListener('input', function (e) {
+    // Remove non-numeric characters
+    this.value = this.value.replace(/\D/g, '');
+  });
+</script>
 
 @stop

@@ -56,23 +56,24 @@ class ImportUsersFromCSV extends Command
             }
 
             // // Extract name fields (assuming "Name" is "Firstname Lastname")
-            // $nameParts = explode(' ', $row['Name']);
-            // $firstname = $nameParts[0];
-            // $lastname = isset($nameParts[1]) ? $nameParts[1] : '';
+             $nameParts = explode(' ', $row['name']);
+             $firstname = $nameParts[0];
+             $lastname = isset($nameParts[1]) ? $nameParts[1] : '';
 
             // Insert user into the bsl_cmn_users table
             DB::table('bsl_cmn_users')->insert([
-                'bsl_cmn_users_firstname' => $row['Name'],
-                // 'bsl_cmn_users_lastname' => $lastname,
-                'bsl_cmn_users_department' => $row['Department'],
+                'bsl_cmn_users_firstname' => $firstname,
+                'bsl_cmn_users_lastname' => $lastname,
+                'bsl_cmn_users_department' => $row['department'],
                 'email' => $row['email'],
-                'bsl_cmn_users_employment_number' => $row['staffno'],
+		'bsl_cmn_users_employment_number' => $row['staffno'],
+		'bsl_cmn_users_pin' => null,
                 'bsl_cmn_users_type' => 1,  
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
 
-            $this->info("Successfully inserted user: {$row['Name']}");
+            $this->info("Successfully inserted user: {$firstname} {$lastname}");
         }
 
         $this->info("CSV import completed.");

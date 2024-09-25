@@ -226,7 +226,7 @@
             title: 'Error',
             text: '{{ session("error") }}',
             confirmButtonColor: '#153037', // Change the color of the confirm button
-            timer: 5000,
+            timer: 3000,
             timerProgressBar: true
         }).then((result) => {
             if (result.dismiss === Swal.DismissReason.timer) {

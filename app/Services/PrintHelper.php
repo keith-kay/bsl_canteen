@@ -52,8 +52,8 @@ class PrintHelper
         
         $printer->text("Staff ID: " . $mealDetails->staffid . "\n");
         $printer->text("Name: " . $mealDetails->userName . "\n");
-        // $printer->text("Company: " . $mealDetails->company . "\n");
-        // $printer->text("Department: " . $mealDetails->department . "\n");
+        $printer->text("Company: " . $mealDetails->company . "\n");
+        $printer->text("Department: " . $mealDetails->department . "\n");
         // $printer->text("Meal type: " . $mealDetails->mealtype . "\n");
         $printer->text("Time: " . $mealDetails->date . "\n");
         $printer->text("Site: " . $mealDetails->site . "\n");
