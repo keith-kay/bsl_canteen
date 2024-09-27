@@ -206,7 +206,7 @@
             text: '{{ session("success") }}',
             footer: 'Please pick your meal ticket!',
             confirmButtonColor: '#153037',
-            timer: 5000,
+            timer: 3000,
             timerProgressBar: true
         }).then((result) => {
             if (result.dismiss === Swal.DismissReason.timer) {
