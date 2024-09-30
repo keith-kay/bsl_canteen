@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Logs;
 use App\Services\PrintHelper;
+use App\Models\Sites;
+use App\Models\CustomUser;
+use App\Models\User_type;
 use Carbon\Carbon;
 
 class MealticketController extends Controller
@@ -16,6 +19,22 @@ class MealticketController extends Controller
         $logs = Logs::with('user', 'mealType')->get();
 
         return view('admin.tickets', ['logs' => $logs]);
+    }
+
+    public function fetchCompanies()
+    {
+        $companies = User_type::pluck('bsl_cmn_user_types_name');
+        return response()->json($companies);
+    }
+    public function fetchSites()
+    {
+        $sites = Sites::pluck('bsl_cmn_sites_name');
+        return response()->json($sites);
+    }
+    public function fetchDepartments()
+    {
+        $department = CustomUser::pluck('bsl_cmn_users_department');
+        return response()->json($department);
     }
 
     public function printTicket(Request $request)

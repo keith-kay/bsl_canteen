@@ -107,6 +107,14 @@
                     <i class="bi bi-gear"></i><span>Configs</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin'))
+                    <li>
+                        <a href="{{ url('guests') }}">
+                            <i class="bi bi-circle"></i><span>Guests</span>
+                        </a>
+                    </li>
+                @endif
+                @if(auth()->user()->hasRole('super-admin'))
                     <li>
                         <a href="{{ url('users') }}">
                             <i class="bi bi-circle"></i><span>Users</span>
@@ -142,18 +150,21 @@
                             <i class="bi bi-circle"></i><span>Shifts</span>
                         </a>
                     </li>
+                @endif
                 </ul>
             </li><!-- End Users Nav -->
 
 
             <!-- End Companies -->
-
+            @if(auth()->user()->hasRole('super-admin'))
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{url('ticket')}}">
                     <i class="bi bi-grid"></i>
                     <span>Meal-tickets</span>
                 </a>
-            </li><!-- End Meal-tickets -->
+            </li>
+            @endif
+            <!-- End Meal-tickets -->
 
 
             <li class="nav-item">

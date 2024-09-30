@@ -22,7 +22,7 @@ Route::get('/mpe', function () {
     $user->assignRole('super-admin');
 });
 //super-admin routes
-//Route::group(['middleware' => ['role:super-admin']], function () {
+Route::group(['middleware' => ['role:super-admin']], function () {
 Route::resource('permissions', App\Http\Controllers\PermissionController::class);
 Route::get('permissions/{permissionid}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
 
@@ -53,21 +53,28 @@ Route::post('/printers/{printer}/test', [MealSelectionController::class, 'printT
 Route::post('/print-ticket', [MealticketController::class, 'printTicket'])->name('print.ticket');
 
 Route::get('/ticket', [MealticketController::class, 'index'])->name('ticket');
-//});
+});
 
 //admin && super-admin routes 
-
+Route::group(['middleware' => ['role:admin|super-admin']], function () {
 Route::get('/admin/dashboard', [adminDashboardController::class, 'adminDashboard'])->name('admin.dashboard');
 Route::get('/fetch-companies', [ReportController::class, 'fetchCompanies'])->name('fetch.companies');
 Route::get('/fetch-sites', [ReportController::class, 'fetchSites'])->name('fetch.sites');
+Route::get('/get-companies', [MealticketController::class, 'fetchCompanies'])->name('get.companies');
+Route::get('/get-sites', [MealticketController::class, 'fetchSites'])->name('get.sites');
+Route::get('/get-department', [MealticketController::class, 'fetchDepartments'])->name('get.department');
 Route::get('/report', [ReportController::class, 'index'])->name('report');
+Route::resource('guests', App\Http\Controllers\GuestController::class);
+Route::get('guests/{guestid}/delete', [App\Http\Controllers\GuestController::class, 'destroy']);
+Route::post('/print-tickets', [MealSelectionController::class, 'printTickets'])->name('print.tickets');
+});
 
 
 //normal user routes
-//Route::group(['middleware' => ['role:user']], function () {
+Route::group(['middleware' => ['role:user']], function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->name("dashboard");
 Route::post('/selectMeal', [MealSelectionController::class, 'selectMeal'])->name("select-meal");
-//});
+});
 
 //admin login routes
 Route::get('/admin-login', [UserController::class, 'adminLogin'])->name('login');

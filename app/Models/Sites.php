@@ -30,6 +30,6 @@ class Sites extends Model
     }
     public function printer()
     {
-        return $this->hasMany(Printers::class, 'site_id', 'bsl_cmn_sites_id');
+        return $this->hasMany(Printers::class, 'site_id');
     }
 }

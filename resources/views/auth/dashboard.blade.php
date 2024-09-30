@@ -130,6 +130,9 @@
                 <h5>Your IP Address: {{ $ip_address }}</h5>
             </div> -->
         </div>
+        @if(session('errors'))
+            {{ session('errors') }}
+        @endif
         <div class="container">
             <!-- Main Content -->
             <form id="mealSelectionForm" action="/selectMeal" method="post">
@@ -137,7 +140,7 @@
                 <div class="row mt-3 mb-4 justify-content-center">
                     <input type="hidden" id="mealTypeIdInput" name="meal_type_id">
 
-                    <!-- <div class="col-md-6 mt-4">
+                    <div class="col-md-6 mt-4">
                         <a href="javascript:void(0);" onclick="selectMeal(1)" style="text-decoration: none;">
                             <div class="image-div">
                                 <div class="d-flex justify-content-center mx-auto"
@@ -157,7 +160,7 @@
                                 </p>
                             </div>
                         </a>
-                    </div> -->
+                    </div>
 
                     <div class="col-md-6 mt-4">
                         <a href="javascript:void(0);" onclick="selectMeal(2)" style="text-decoration: none;">
@@ -206,7 +209,7 @@
             text: '{{ session("success") }}',
             footer: 'Please pick your meal ticket!',
             confirmButtonColor: '#153037',
-            timer: 5000,
+            timer: 3000,
             timerProgressBar: true
         }).then((result) => {
             if (result.dismiss === Swal.DismissReason.timer) {
@@ -233,6 +236,26 @@
                 // Log out after 5 seconds
                 logoutUser();
             }
+        });
+        </script>
+        @endif
+    </div>
+
+    <div id="swal-container">
+        @if(session('errors'))
+        <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '{{ session("errors") }}',
+            confirmButtonColor: '#153037', // Change the color of the confirm button
+            // timer: 3000,
+            //timerProgressBar: true
+        // }).then((result) => {
+        //     if (result.dismiss === Swal.DismissReason.timer) {
+        //         // Log out after 5 seconds
+        //         logoutUser();
+        //     }
         });
         </script>
         @endif
