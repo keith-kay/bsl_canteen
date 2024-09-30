@@ -18,11 +18,14 @@ class DashboardController extends Controller
     {
 
         $user = Auth::user();
+        $user = Auth::user();
+        dd($user->roles);
         return view('auth.dashboard')->with(
             [
                 'user' => $user,
                 'ip_address' => $request->ip(),
             ]
         );
+        
     }
 }

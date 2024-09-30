@@ -295,8 +295,8 @@ class UserController extends Controller
             // Dump the credentials array for debugging
             // dd($credentials);
 
-            if ($user->isAdmin()) {
-                // Admin user - authenticate using password
+            // if ($user->isAdmin()) {
+            //     // Admin user - authenticate using password
                 //dd($user);
                 if (Auth::attempt($credentials)) {
 
@@ -304,11 +304,11 @@ class UserController extends Controller
                 } else {
                     return back()->withInput()->with('fail', 'Invalid email or password');
                 }
-            } else {
-                // Regular user - authenticate using PIN
-                // Logic to authenticate using PIN goes here
-                return redirect()->route('/');
-            }
+            // } else {
+            //     // Regular user - authenticate using PIN
+            //     // Logic to authenticate using PIN goes here
+            //     return redirect()->route('/');
+            // }
         } else {
             return back()->withInput()->with('fail', 'User not found');
         }

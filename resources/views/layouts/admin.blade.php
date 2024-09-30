@@ -101,7 +101,7 @@
                 </a>
             </li><!-- End Dashboard Nav -->
 
-
+            @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin'))
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#components-nav">
                     <i class="bi bi-gear"></i><span>Configs</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -153,10 +153,11 @@
                 @endif
                 </ul>
             </li><!-- End Users Nav -->
+            @endif
 
 
             <!-- End Companies -->
-            @if(auth()->user()->hasRole('super-admin'))
+            @if(auth()->user()->hasRole('super-admin') || auth()->user()->hasRole('security'))
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{url('ticket')}}">
                     <i class="bi bi-grid"></i>
@@ -166,14 +167,14 @@
             @endif
             <!-- End Meal-tickets -->
 
-
+            @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin'))
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{url('report')}}">
                     <i class="bi bi-grid"></i>
                     <span>Reports</span>
                 </a>
             </li><!-- End Meal-tickets -->
-
+            @endif
         </ul>
 
     </aside><!-- End Sidebar-->

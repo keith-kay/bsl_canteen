@@ -151,11 +151,13 @@ Admin | Tickets
         </select>
     </div>
 </div>
+@if(auth()->user()->hasRole('security') || auth()->user()->hasRole('super-admin'))
 <div class="form-group row mt-3">
     <div class="col-sm-12 text-end"> <!-- Align the button to the right -->
         <a class="btn btn-success print-btn print-btn">Print</a>
     </div>
 </div>
+@endif
 
 
             <table id="reports-table" class="table table-border-less table-striped my-3">
@@ -168,7 +170,9 @@ Admin | Tickets
                         <th>Department</th>
                         <th>Meal Type</th>
                         <th>Timestamp</th>
-                        <!-- <th>Action</th> -->
+                        @if(auth()->user()->hasRole('super-admin'))
+                        <th>Action</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -181,7 +185,8 @@ Admin | Tickets
                         <td>{{$log->user->bsl_cmn_users_department}}</td>
                         <td>{{ $log->mealType->bsl_cmn_mealtypes_mealname }}</td>
                         <td>{{ $log->bsl_cmn_logs_time }}</td>
-                        <!-- <td style="white-space: nowrap;">
+                        @if(auth()->user()->hasRole('super-admin'))
+                        <td style="white-space: nowrap;">
                             <div class="row">
                                 <div class="col mb-1">
                                     <a class="btn btn-success print-btn">Print</a>
@@ -191,7 +196,8 @@ Admin | Tickets
                                         class="btn btn-danger btn-block">Delete</a>
                                 </div>
                             </div>
-                        </td> -->
+                        </td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
