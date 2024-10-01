@@ -40,7 +40,7 @@ class MealSelectionController extends Controller
         $sourceDevice = $request->ip();
         $site = Sites::where('bsl_cmn_sites_device_ip', $sourceDevice)->first();
         if (!$site) {
-            return redirect('/dashboard')->with('errors', 'Canteen Site, Contact IT admin!.');
+            return redirect('/dashboard')->with('errors', 'Canteen Site/Device Mismatch, Contact IT admin!.');
         }
 
         // At this point, you have both the site and the printer

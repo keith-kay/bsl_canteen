@@ -140,7 +140,7 @@
                 <div class="row mt-3 mb-4 justify-content-center">
                     <input type="hidden" id="mealTypeIdInput" name="meal_type_id">
 
-                    <div class="col-md-6 mt-4">
+                    {{-- <div class="col-md-6 mt-4">
                         <a href="javascript:void(0);" onclick="selectMeal(1)" style="text-decoration: none;">
                             <div class="image-div">
                                 <div class="d-flex justify-content-center mx-auto"
@@ -160,7 +160,7 @@
                                 </p>
                             </div>
                         </a>
-                    </div>
+                    </div> --}}
 
                     <div class="col-md-6 mt-4">
                         <a href="javascript:void(0);" onclick="selectMeal(2)" style="text-decoration: none;">
