@@ -12,6 +12,7 @@ use App\Http\Controllers\MealticketController;
 use App\Http\Controllers\PrintersController;
 use App\Http\Controllers\SitesController;
 use App\Http\Controllers\ShiftController;
+use App\Http\Controllers\SecurityMealTicket;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -57,6 +58,8 @@ Route::group(['middleware' => ['role:super-admin']], function () {
 
     Route::post('/print-ticket', [MealticketController::class, 'printTicket'])->name('print.ticket');
 
+    Route::resource('securities', SecurityMealTicket::class);
+
     // Route::get('/ticket', [MealticketController::class, 'index'])->name('ticket');
 
     // Route::get('/get-companies', [MealticketController::class, 'fetchCompanies'])->name('get.companies');
@@ -80,11 +83,15 @@ Route::group(['middleware' => ['role:admin|super-admin']], function () {
 });
 
 Route::group(['middleware' => ['role:security|super-admin']], function () {
-    Route::post('/print-tickets', [MealSelectionController::class, 'printTickets'])->name('print.tickets');
+    //Route::post('/print-tickets', [MealSelectionController::class, 'printTickets'])->name('print.tickets');
     Route::get('/ticket', [MealticketController::class, 'index'])->name('ticket');
-    Route::get('/get-companies', [MealticketController::class, 'fetchCompanies'])->name('get.companies');
+    //Route::get('/get-companies', [MealticketController::class, 'fetchCompanies'])->name('get.companies');
     Route::get('/get-sites', [MealticketController::class, 'fetchSites'])->name('get.sites');
-    Route::get('/get-department', [MealticketController::class, 'fetchDepartments'])->name('get.department');
+    //Route::get('/get-department', [MealticketController::class, 'fetchDepartments'])->name('get.department');
+    Route::post('/log-ticket', [SecurityMealTicket::class, 'logTicket'])->name('log.ticket');
+
+    Route::resource('securities', SecurityMealTicket::class);
+
     // Other security routes...
 });
 

@@ -28,7 +28,7 @@ class MealticketController extends Controller
     }
     public function fetchSites()
     {
-        $sites = Sites::pluck('bsl_cmn_sites_name');
+        $sites = Sites::select('bsl_cmn_sites_id', 'bsl_cmn_sites_name')->get();
         return response()->json($sites);
     }
     public function fetchDepartments()

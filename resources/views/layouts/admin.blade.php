@@ -157,12 +157,22 @@
 
 
             <!-- End Companies -->
-            @if(auth()->user()->hasRole('super-admin') || auth()->user()->hasRole('security'))
+            @if(auth()->user()->hasRole('super-admin') )
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{url('ticket')}}">
                     <i class="bi bi-grid"></i>
                     <span>Meal-tickets</span>
                 </a>
+
+            </li>
+            @endif
+            @if(auth()->user()->hasRole('super-admin') || auth()->user()->hasRole('security'))
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{url('securities')}}">
+                    <i class="bi bi-grid"></i>
+                    <span>Security-Tickets</span>
+                </a>
+                
             </li>
             @endif
             <!-- End Meal-tickets -->

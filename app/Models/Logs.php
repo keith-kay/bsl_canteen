@@ -13,9 +13,9 @@ class Logs extends Model
     protected $primaryKey = 'bsl_cmn_logs_id';
 
     protected $fillable = [
-        'bsl_cmn_logs.person',
+        'bsl_cmn_logs_person',
         'bsl_cmn_logs_mealtype',
-        'bsl_cmn_logs.time',
+        'bsl_cmn_logs_time',
         'bsl_cmn_logs_site',
     ];
     public function user()
