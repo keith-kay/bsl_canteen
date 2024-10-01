@@ -91,12 +91,7 @@ Admin | Tickets
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Tickets</h5>
-            <!-- Filter and Reset buttons -->
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <button id="export-btn" class="btn btn-nav fw-bold">Export to Excel</button>
-                </div>
-            </div>
+            
             <!-- Filter and Reset buttons -->
             <div class="form-group row mt-3">
                 <div class="col-sm-6">
