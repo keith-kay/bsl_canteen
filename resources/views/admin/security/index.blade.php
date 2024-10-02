@@ -278,7 +278,7 @@ Admin | Tickets
             $.ajax({
                 url: "{{ route('log.ticket') }}",
                 method: 'POST',
-                Accept: application/json
+                Accept: application/json,
                 data: {
                     tickets: ticketsToPrint.length > 0 ? ticketsToPrint : [],
                     site_id: selectedSiteId ? parseInt(selectedSiteId) : null,
