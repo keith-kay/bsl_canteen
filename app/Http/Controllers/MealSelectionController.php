@@ -84,9 +84,9 @@ class MealSelectionController extends Controller
 
 
         // Check the number of meals already taken in this shift
-        echo $currentDateTime . "<br>";
-        echo $shiftStartTime . "<br>";
-        echo $shiftEndTime . "<br>";
+        // echo $currentDateTime . "<br>";
+        // echo $shiftStartTime . "<br>";
+        // echo $shiftEndTime . "<br>";
         $mealCount = Logs::where('bsl_cmn_logs_person', $userId)
             ->where('bsl_cmn_logs_mealtype', $validatedData['meal_type_id']) // Check the specific meal type
             ->whereBetween('created_at', [$shiftStartTime, $shiftEndTime])

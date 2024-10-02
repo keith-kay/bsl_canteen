@@ -92,7 +92,7 @@ Admin | Tickets
         <div class="card-body">
             <h5 class="card-title">Tickets</h5>
             
-            <!-- Filter and Reset buttons -->
+            {{-- <!-- Filter and Reset buttons -->
             <div class="form-group row mt-3">
                 <div class="col-sm-6">
                     <button id="filter-btn" class="btn btn-nav fw-bold">Filter</button>
@@ -152,7 +152,7 @@ Admin | Tickets
         <a class="btn btn-success print-btn print-btn">Print</a>
     </div>
 </div>
-@endif
+@endif --}}
 
 
             <table id="reports-table" class="table table-border-less table-striped my-3">
@@ -210,26 +210,9 @@ Admin | Tickets
 <!-- Include DataTables JavaScript -->
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
-<!-- <script>
-    console.log("AJAX request fired");
-    $.ajax({
-        url: "{{ route('get.companies') }}",
-        method: 'GET',
-        success: function(data) {
-            console.log(data);
-            var companySelect = $('#company-select');
-            companySelect.empty();
-            companySelect.append('<option value="">Select a company</option>');
-            $.each(data, function(index, value) {
-                companySelect.append('<option value="' + value + '">' + value + '</option>');
-            });
-        }
-});
 
-</script> -->
 <script>
-    var requestUrl = "{{ route('get.companies') }}";
-    console.log("Request URL: ", requestUrl);
+    
     
     $(document).ready(function() {
         var table = $('#reports-table').DataTable({
@@ -243,238 +226,8 @@ Admin | Tickets
             "pageLength": 10 // Display 10 rows per page
         });
 
-        // Fetch and populate the company dropdown
-        $.ajax({
-            url: "{{ route('get.companies') }}",
-            method: 'GET',
-            success: function(data) {
-                console.log(data);
-                var companySelect = $('#company-select');
-                companySelect.empty();
-                companySelect.append('<option value="">Select a company</option>');
-                $.each(data, function(index, value) {
-                    companySelect.append('<option value="' + value + '">' + value + '</option>');
-                });
-            }
-        });
-
-        // Fetch and populate the sites dropdown
-        $.ajax({
-            url: "{{ route('get.sites') }}",
-            method: 'GET',
-            success: function(data) {
-                var siteSelect = $('#site-select');
-                siteSelect.empty();
-                siteSelect.append('<option value="">Select a site</option>');
-                $.each(data, function(index, value) {
-                    siteSelect.append('<option value="' + value + '">' + value + '</option>');
-                });
-            }
-        });
-
-        // Fetch and populate the department dropdown
-        $.ajax({
-            url: "{{ route('get.department') }}",
-            method: 'GET',
-            success: function(data) {
-                var departmentSelect = $('#department-select');
-                departmentSelect.empty();
-                departmentSelect.append('<option value="">Select a department</option>');
-                $.each(data, function(index, value) {
-                    departmentSelect.append('<option value="' + value + '">' + value + '</option>');
-                });
-            }
-        });
-
-        // Function to filter table based on date range, meal types, and selected company
-        function applyFilters() {
-            var fromDate = $('#from_date').val();
-            var toDate = $('#to_date').val();
-            var selectedMealTypes = $('.meal-type-checkbox:checked').map(function() {
-                return this.value;
-            }).get();
-            var selectedCompany = $('#company-select').val(); 
-            var selectedSite = $('#site-select').val();
-            var selectedDepartment = $('#department-select').val();
-
-            table.draw(); // Redraw the table with new filters
-        }
-
-        // Filter button click event handler
-        $('#filter-btn').on('click', function() {
-            applyFilters();
-        });
-
-        // Reset button click event handler
-        $('#reset-btn').on('click', function() {
-            $('#from_date').val('');
-            $('#to_date').val('');
-            $('.meal-type-checkbox').prop('checked', false);
-            $('#company-select').val('');
-            $('#site-select').val('');
-            $('#department-select').val('');
-            table.draw(); // Redraw the table to reset filters
-        });
-
-        // Company, site, and department dropdown change event handlers
-        $('#company-select, #site-select, #department-select').on('change', function() {
-            applyFilters();
-        });
-
-        // Export button click event handler
-        $('#export-btn').on('click', function(event) {
-            event.preventDefault();
-            exportDataToExcel();
-        });
-
-        // Print button click event handler
-        $('.print-btn').on('click', function() {
-            var ticketsToPrint = [];
-            
-            // Collect data from visible rows in the DataTable
-            table.rows({ search: 'applied' }).every(function() {
-                var data = this.data();
-                ticketsToPrint.push({
-                    name: data[0],
-                    staffNo: data[1],
-                    company: data[2],
-                    site: data[3],
-                    department: data[4],
-                    mealType: data[5],
-                    timestamp: data[6]
-                });
-            });
-
-            // Log the tickets to be printed for debugging
-            console.log("Tickets to Print: ", ticketsToPrint);
-
-            // Send the collected data to the server for printing
-            $.ajax({
-                url: "{{ route('print.tickets') }}", // Update this with your actual route
-                method: 'POST',
-                data: {
-                    tickets: ticketsToPrint,
-                    _token: '{{ csrf_token() }}' // Include CSRF token for security
-                },
-                success: function(response) {
-                    // Handle success (e.g., show success message, redirect, etc.)
-                    if (response.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Print Successful!',
-                            text: response.message
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Print Failed!',
-                            text: response.message
-                        });
-                    }
-                },
-                error: function(xhr) {
-                    // Enhanced error logging
-                    console.log(xhr); // Log the full response for inspection
-                    var errorMessage = xhr.responseJSON && xhr.responseJSON.message 
-                        ? xhr.responseJSON.message 
-                        : 'An error occurred while trying to print.';
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: errorMessage
-                    });
-                }
-            });
-        });
-
-        // Function to export data to Excel
-        function exportDataToExcel() {
-            var filteredData = [];
-            table.rows({ search: 'applied' }).every(function() {
-                filteredData.push(this.data());
-            });
-
-            var columnHeaders = table.columns().header().toArray().map(function(header) {
-                return $(header).text().trim();
-            });
-
-            var exportData = [columnHeaders];
-            filteredData.forEach(function(rowData) {
-                var rowDataTrimmed = rowData.map(function(cellData) {
-                    return cellData.trim();
-                });
-                exportData.push(rowDataTrimmed);
-            });
-
-            var ws = XLSX.utils.aoa_to_sheet(exportData);
-            var wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'FilteredReportData');
-            XLSX.writeFile(wb, 'MealTicketsReport_data.xlsx');
-        }
-
-        // Apply custom filtering function
-        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-            var logDate = data[6];
-            var mealType = data[5];
-            var fromDate = $('#from_date').val();
-            var toDate = $('#to_date').val();
-            var selectedMealTypes = $('.meal-type-checkbox:checked').map(function() {
-                return this.value;
-            }).get();
-            var selectedCompany = $('#company-select').val();
-            var selectedSite = $('#site-select').val();
-            var selectedDepartment = $('#department-select').val();
-
-            if (fromDate && toDate && (logDate < fromDate || logDate > toDate)) return false;
-            if (selectedMealTypes.length > 0 && !selectedMealTypes.includes(mealType)) return false;
-            if (selectedCompany && data[2] !== selectedCompany) return false;
-            if (selectedSite && data[3] !== selectedSite) return false;
-            if (selectedDepartment && data[4] !== selectedDepartment) return false;
-
-            return true;
-        });
-
-        // Hide DataTable search input
-        $('.dataTables_filter').hide();
+        
     });
 </script>
 
-<!-- <script>
-    $(document).ready(function() {
-        var table = $('#reports-table').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-            "pageLength": 10 // Display 10 rows per page
-        });
-
-        // Print Button Click Event
-        $('#reports-table').on('click', '.print-btn', function() {
-            // Extract user ID from the data attribute of the table row
-            var userId = $(this).closest('tr').data('user-id');
-
-            // Send the data in a POST request to the printTicket endpoint
-            $.ajax({
-                url: '{{ route("print.ticket") }}',
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    userid: userId
-                },
-                success: function(response) {
-                    console.log('Printing initiated:', response);
-                    // Optionally, you can handle the response here
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error printing:', error);
-                    // Optionally, you can handle errors here
-                }
-            });
-        });
-    });
-</script> -->
 @stop

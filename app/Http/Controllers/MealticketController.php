@@ -17,7 +17,6 @@ class MealticketController extends Controller
     {
         $user = Auth::user();
         $logs = Logs::with('user', 'mealType')->get();
-
         return view('admin.tickets', ['logs' => $logs]);
     }
 
