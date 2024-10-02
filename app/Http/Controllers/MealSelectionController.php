@@ -195,7 +195,7 @@ class MealSelectionController extends Controller
             return redirect()->back()->with('success', 'Test print job sent successfully.');
         } catch (\Exception $e) {
             // Return an error response with the exception message
-            return redirect()->back()->with('errors', 'Failed to send test print job: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to send test print job: ' . $e->getMessage());
         }
     }
 

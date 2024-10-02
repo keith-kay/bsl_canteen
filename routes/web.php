@@ -83,11 +83,11 @@ Route::group(['middleware' => ['role:admin|super-admin']], function () {
 });
 
 Route::group(['middleware' => ['role:security|super-admin']], function () {
-    //Route::post('/print-tickets', [MealSelectionController::class, 'printTickets'])->name('print.tickets');
+   
     Route::get('/ticket', [MealticketController::class, 'index'])->name('ticket');
-    //Route::get('/get-companies', [MealticketController::class, 'fetchCompanies'])->name('get.companies');
+    
     Route::get('/get-sites', [MealticketController::class, 'fetchSites'])->name('get.sites');
-    //Route::get('/get-department', [MealticketController::class, 'fetchDepartments'])->name('get.department');
+    
     Route::post('/log-ticket', [SecurityMealTicket::class, 'logTicket'])->name('log.ticket');
 
     Route::resource('securities', SecurityMealTicket::class);
