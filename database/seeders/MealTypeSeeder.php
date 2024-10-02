@@ -18,7 +18,6 @@ class MealTypeSeeder extends Seeder
         DB::table('bsl_cmn_mealtypes')->insert([
             [
                 'bsl_cmn_mealtypes_mealname'=>'Tea',
-                'bsl_cmn_mealtypes_site'=>1,
                 'bsl_cmn_mealtypes_numberofmeals'=>1,
                 'bsl_cmn_mealtypes_starthour'=>7,
                 'bsl_cmn_mealtypes_duration'=>24,
@@ -27,7 +26,6 @@ class MealTypeSeeder extends Seeder
             ],
             [
                 'bsl_cmn_mealtypes_mealname'=>'Lunch',
-                'bsl_cmn_mealtypes_site'=>1,
                 'bsl_cmn_mealtypes_numberofmeals'=>1,
                 'bsl_cmn_mealtypes_starthour'=>7,
                 'bsl_cmn_mealtypes_duration'=>24,
