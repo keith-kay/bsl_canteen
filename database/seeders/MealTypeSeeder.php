@@ -25,7 +25,7 @@ class MealTypeSeeder extends Seeder
                 'created_at'=>Carbon::now(),
             ],
             [
-                'bsl_cmn_mealtypes_mealname'=>'Lunch',
+                'bsl_cmn_mealtypes_mealname'=>'Food',
                 'bsl_cmn_mealtypes_numberofmeals'=>1,
                 'bsl_cmn_mealtypes_starthour'=>7,
                 'bsl_cmn_mealtypes_duration'=>24,
