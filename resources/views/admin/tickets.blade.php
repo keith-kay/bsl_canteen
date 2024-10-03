@@ -92,69 +92,6 @@ Admin | Tickets
         <div class="card-body">
             <h5 class="card-title">Tickets</h5>
             
-            {{-- <!-- Filter and Reset buttons -->
-            <div class="form-group row mt-3">
-                <div class="col-sm-6">
-                    <button id="filter-btn" class="btn btn-nav fw-bold">Filter</button>
-                    <button id="reset-btn" class="btn btn-danger">Reset</button>
-                </div>
-            </div>
-
-            <!-- Date filtering options -->
-            <div class="form-group row mt-3">
-                <label for="from_date" class="col-sm-2 col-form-label fw-bold">From:</label>
-                <div class="col-sm-4">
-                    <input type="date" class="form-control" id="from_date">
-                </div>
-                <label for="to_date" class="col-sm-2 col-form-label fw-bold">To:</label>
-                <div class="col-sm-4">
-                    <input type="date" class="form-control" id="to_date">
-                </div>
-            </div>
-
-            <!-- Meal Type filtering options -->
-            <div class="form-group row mt-3">
-    <div class="col-sm-3">
-        <label class="col-form-label fw-bold">Meal Type:</label>
-        <div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input meal-type-checkbox" type="checkbox" id="tea" value="Tea">
-                <label class="form-check-label" for="tea">Tea</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input meal-type-checkbox" type="checkbox" id="lunch" value="Food">
-                <label class="form-check-label" for="lunch">Food</label>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <label class="col-form-label fw-bold">Company:</label>
-        <select class="form-select" id="company-select">
-            <option value="">Select a company</option>
-        </select>
-    </div>
-    <div class="col-sm-3">
-        <label class="col-form-label fw-bold">Department:</label>
-        <select class="form-select" id="department-select">
-            <option value="">Select a department</option>
-        </select>
-    </div>
-    <div class="col-sm-3">
-        <label class="col-form-label fw-bold">Site:</label>
-        <select class="form-select" id="site-select">
-            <option value="">Select a site</option>
-        </select>
-    </div>
-</div>
-@if(auth()->user()->hasRole('security') || auth()->user()->hasRole('super-admin'))
-<div class="form-group row mt-3">
-    <div class="col-sm-12 text-end"> <!-- Align the button to the right -->
-        <a class="btn btn-success print-btn print-btn">Print</a>
-    </div>
-</div>
-@endif --}}
-
-
             <table id="reports-table" class="table table-border-less table-striped my-3">
                 <thead>
                     <tr>

@@ -278,13 +278,13 @@ Admin | Tickets
             $.ajax({
                 url: "{{ route('log.ticket') }}",
                 method: 'POST',
-                Accept: 'application/json',
                 data: {
-                    tickets: ticketsToPrint.length > 0 ? ticketsToPrint : [],
-                    site_id: selectedSiteId ? parseInt(selectedSiteId) : null,
+                    tickets: ticketsToPrint, // ticketsToPrint.length > 0 ? ticketsToPrint : [],
+                    site_id: selectedSiteId, // selectedSiteId ? parseInt(selectedSiteId) : null,
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
+		    console.log(response);
                     if (response.success) {
                         Swal.fire({
                             icon: 'success',
